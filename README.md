@@ -24,7 +24,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | The S3 / GCS bucket for storing data | `string` | n/a | yes |
-| <a name="input_bucket_aws_region"></a> [bucket\_aws\_region](#input\_bucket\_aws\_region) | n/a | `string` | `"The AWS Region where your bucket lives"` | no |
+| <a name="input_bucket_aws_region"></a> [bucket\_aws\_region](#input\_bucket\_aws\_region) | The AWS Region where your bucket lives | `string` | `""` | no |
 | <a name="input_bucket_kms_key_arn"></a> [bucket\_kms\_key\_arn](#input\_bucket\_kms\_key\_arn) | AWS KMS key used to decrypt the bucket. | `string` | `""` | no |
 | <a name="input_bucket_queue"></a> [bucket\_queue](#input\_bucket\_queue) | The SQS / Google PubSub queue for object creation events | `string` | n/a | yes |
 | <a name="input_host"></a> [host](#input\_host) | The FQD of your instance. | `string` | n/a | yes |
