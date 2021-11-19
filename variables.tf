@@ -43,8 +43,33 @@ variable "mysql_connection_string" {
 
 variable "bucket_aws_region" {
   type    = string
-  default = "The AWS Region where your bucket lives"
+  description = "The AWS Region where your bucket lives"
+  default = ""
 }
+
+# variable "auth0_domain" {
+#   type    = string
+#   description = "The Auth0 domain of your tenant"
+#   default = ""
+# }
+
+# variable "auth0_client_id" {
+#   type    = string
+#   description = "The Auth0 Client ID of application"
+#   default = ""
+# }
+
+# variable "slack_client_id" {
+#   type    = string
+#   description = "The client ID of the Slack application you want to use for alerts"
+#   default = ""
+# }
+
+# variable "slack_secret" {
+#   type    = string
+#   description = "The secret of the Slack application you want to use for alerts"
+#   default = ""
+# }
 
 variable "progress_deadline_seconds" {
   description = "The version of Weights & Biases local to deploy."
