@@ -59,7 +59,7 @@ resource "kubernetes_deployment" "wandb" {
 
           env {
             name  = "AWS_REGION"
-            value = var.aws_region
+            value = var.bucket_aws_region
           }
 
           env {

@@ -12,7 +12,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | ~> 2.6 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.6.1 |
 
 ## Resources
 
@@ -23,10 +23,9 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | `null` | no |
-| <a name="input_aws_s3_kms_id"></a> [aws\_s3\_kms\_id](#input\_aws\_s3\_kms\_id) | n/a | `string` | n/a | yes |
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | The S3 / GCS bucket for storing data | `string` | n/a | yes |
-| <a name="input_bucket_kms_key_arn"></a> [bucket\_kms\_key\_arn](#input\_bucket\_kms\_key\_arn) | AWS KMS key used to decrypt the bucket. | `string` | `null` | no |
+| <a name="input_bucket_aws_region"></a> [bucket\_aws\_region](#input\_bucket\_aws\_region) | n/a | `string` | `"The AWS Region where your bucket lives"` | no |
+| <a name="input_bucket_kms_key_arn"></a> [bucket\_kms\_key\_arn](#input\_bucket\_kms\_key\_arn) | AWS KMS key used to decrypt the bucket. | `string` | `""` | no |
 | <a name="input_bucket_queue"></a> [bucket\_queue](#input\_bucket\_queue) | The SQS / Google PubSub queue for object creation events | `string` | n/a | yes |
 | <a name="input_host"></a> [host](#input\_host) | The FQD of your instance. | `string` | n/a | yes |
 | <a name="input_license"></a> [license](#input\_license) | Your wandb/local license | `string` | n/a | yes |

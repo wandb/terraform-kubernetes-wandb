@@ -33,7 +33,7 @@ variable "bucket_queue" {
 variable "bucket_kms_key_arn" {
   type        = string
   description = "AWS KMS key used to decrypt the bucket."
-  default     = null
+  default     = ""
 }
 
 variable "mysql_connection_string" {
@@ -41,13 +41,9 @@ variable "mysql_connection_string" {
   description = "The MySQL connection string."
 }
 
-variable "aws_region" {
+variable "bucket_aws_region" {
   type    = string
-  default = null
-}
-
-variable "aws_s3_kms_id" {
-  type = string
+  default = "The AWS Region where your bucket lives"
 }
 
 variable "progress_deadline_seconds" {
