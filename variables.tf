@@ -36,7 +36,7 @@ variable "bucket_kms_key_arn" {
   default     = ""
 }
 
-variable "mysql_connection_string" {
+variable "database_connection_string" {
   type        = string
   description = "The MySQL connection string."
 }

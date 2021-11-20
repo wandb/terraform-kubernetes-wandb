@@ -64,7 +64,7 @@ resource "kubernetes_deployment" "wandb" {
 
           env {
             name  = "MYSQL"
-            value = var.mysql_connection_string
+            value = var.database_connection_string
           }
 
           env {
