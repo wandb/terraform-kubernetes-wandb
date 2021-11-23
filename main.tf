@@ -89,7 +89,7 @@ resource "kubernetes_deployment" "wandb" {
               path = "/ready"
               port = "http"
             }
-            period_seconds = 900
+            period_seconds = 300
           }
 
           resources {
