@@ -42,22 +42,22 @@ variable "database_connection_string" {
 }
 
 variable "bucket_aws_region" {
-  type    = string
+  type        = string
   description = "The AWS Region where your bucket lives"
-  default = ""
+  default     = ""
 }
 
-# variable "auth0_domain" {
-#   type    = string
-#   description = "The Auth0 domain of your tenant"
-#   default = ""
-# }
+variable "auth0_domain" {
+  type        = string
+  description = "The Auth0 domain of your tenant"
+  default     = ""
+}
 
-# variable "auth0_client_id" {
-#   type    = string
-#   description = "The Auth0 Client ID of application"
-#   default = ""
-# }
+variable "auth0_client_id" {
+  type        = string
+  description = "The Auth0 Client ID of application"
+  default     = ""
+}
 
 # variable "slack_client_id" {
 #   type    = string

@@ -72,6 +72,16 @@ resource "kubernetes_deployment" "wandb" {
             value = var.host
           }
 
+          env {
+            name  = "AUTH0_DOMAIN"
+            value = var.auth0_domain
+          }
+
+          env {
+            name  = "AUTH0_CLIENT_ID"
+            value = var.auth0_client_id
+          }
+
           port {
             name           = "http"
             container_port = 8080
