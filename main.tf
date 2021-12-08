@@ -105,7 +105,7 @@ resource "kubernetes_deployment" "wandb" {
           resources {
             requests = {
               cpu    = "1500m"
-              memory = "4G"
+              memory = "1G"
             }
             limits = {
               cpu    = "4000m"
