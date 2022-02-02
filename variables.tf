@@ -85,4 +85,5 @@ variable "service_port" {
 variable "redis_connection_string" {
   type        = string
   description = "The redis connection string."
+  default     = "redis://127.0.0.1:6379"
 }
