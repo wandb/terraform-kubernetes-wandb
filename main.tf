@@ -82,6 +82,11 @@ resource "kubernetes_deployment" "wandb" {
             value = var.auth0_client_id
           }
 
+          env {
+            name  = "REDIS"
+            value = var.redis_connection_string
+          }
+
           port {
             name           = "http"
             container_port = 8080
