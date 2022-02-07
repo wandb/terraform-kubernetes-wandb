@@ -81,3 +81,9 @@ variable "service_port" {
   type    = number
   default = 32543
 }
+
+variable "redis_connection_string" {
+  type        = string
+  description = "The redis connection string."
+  default     = ""
+}
