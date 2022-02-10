@@ -34,6 +34,7 @@
 | <a name="input_service_port"></a> [service\_port](#input\_service\_port) | n/a | `number` | `32543` | no |
 | <a name="input_wandb_image"></a> [wandb\_image](#input\_wandb\_image) | Docker repository of to pull the wandb image from. | `string` | `"wandb/local"` | no |
 | <a name="input_wandb_version"></a> [wandb\_version](#input\_wandb\_version) | The version of Weights & Biases local to deploy. | `string` | `"latest"` | no |
+| <a name="input_redis"></a> [redis](#input\_redis) | The redis connection string. | `string` | n/a | no |
 
 ## Outputs
 
