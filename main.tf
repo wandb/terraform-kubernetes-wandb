@@ -83,6 +83,21 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
+            name  = "OIDC_CLIENT_ID"
+            value = var.ocid_client_id
+          }
+
+          env {
+            name  = "OIDC_AUTH_METHOD"
+            value = var.ocid_auth_method
+          }
+
+          env {
+            name  = "OIDC_ISSUER"
+            value = var.ocid_issuer
+          }
+
+          env {
             name  = "REDIS"
             value = var.redis_connection_string
           }

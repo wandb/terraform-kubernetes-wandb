@@ -71,6 +71,28 @@ variable "auth0_client_id" {
 #   default = ""
 # }
 
+variable "ocid_issuer" {
+  type        = string
+  description = "A url to your Open ID Connect identity provider, i.e. https://cognito-idp.us-east-1.amazonaws.com/us-east-1_uiIFNdacd"
+  default     = ""
+}
+
+variable "oidc_client_id" {
+  type        = string
+  description = "The Client ID of application in your identity provider"
+  default     = ""
+}
+
+variable "oidc_auth_method" {
+  type        = string
+  description = "The Client ID of application in your identity provider"
+  default     = "implicit"
+  validation {
+    condition     = conatins(["pkce", "implicit"], var.ocid_auth_method)
+    error_message = "Invalid OCID auth method."
+  }
+}
+
 variable "progress_deadline_seconds" {
   description = "The version of Weights & Biases local to deploy."
   type        = number
