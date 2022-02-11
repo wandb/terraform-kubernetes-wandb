@@ -71,7 +71,7 @@ variable "auth0_client_id" {
 #   default = ""
 # }
 
-variable "ocid_issuer" {
+variable "oidc_issuer" {
   type        = string
   description = "A url to your Open ID Connect identity provider, i.e. https://cognito-idp.us-east-1.amazonaws.com/us-east-1_uiIFNdacd"
   default     = ""
@@ -85,11 +85,11 @@ variable "oidc_client_id" {
 
 variable "oidc_auth_method" {
   type        = string
-  description = "The Client ID of application in your identity provider"
+  description = "OIDC auth method"
   default     = "implicit"
   validation {
-    condition     = conatins(["pkce", "implicit"], var.ocid_auth_method)
-    error_message = "Invalid OCID auth method."
+    condition     = conatins(["pkce", "implicit"], var.oidc_auth_method)
+    error_message = "Invalid OIDC auth method."
   }
 }
 
