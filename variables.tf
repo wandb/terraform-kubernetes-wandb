@@ -88,7 +88,7 @@ variable "oidc_auth_method" {
   description = "The Client ID of application in your identity provider"
   default     = "implicit"
   validation {
-    condition     = conatins(["pkce", "implicit"], var.ocid_auth_method)
+    condition     = contains(["pkce", "implicit"], var.ocid_auth_method)
     error_message = "Invalid OCID auth method."
   }
 }
