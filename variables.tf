@@ -88,7 +88,7 @@ variable "oidc_auth_method" {
   description = "OIDC auth method"
   default     = "implicit"
   validation {
-    condition     = conatins(["pkce", "implicit"], var.oidc_auth_method)
+    condition     = contains(["pkce", "implicit"], var.oidc_auth_method)
     error_message = "Invalid OIDC auth method."
   }
 }
