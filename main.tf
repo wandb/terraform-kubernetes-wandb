@@ -106,7 +106,7 @@ resource "kubernetes_deployment" "wandb" {
             name  = "GORILLA_CUSTOM_METRICS_PROVIDER"
             value = "s3://"
           }
-          
+
           port {
             name           = "http"
             container_port = 8080
