@@ -109,3 +109,9 @@ variable "redis_connection_string" {
   description = "The redis connection string."
   default     = ""
 }
+
+variable "publish_custom_metrics" {
+  type        = string
+  description = "The redis connection string."
+  default     = "false"
+}
