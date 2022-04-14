@@ -104,7 +104,7 @@ resource "kubernetes_deployment" "wandb" {
 
           env {
             name  = "GORILLA_CUSTOM_METRICS_PROVIDER"
-            value = var.publish_custom_metrics ? "s3://" : ""
+            value = var.publish_custom_metrics
           }
 
           port {

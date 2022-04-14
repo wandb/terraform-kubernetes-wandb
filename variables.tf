@@ -113,5 +113,5 @@ variable "redis_connection_string" {
 variable "publish_custom_metrics" {
   type        = string
   description = "Publish custom metrics to monitor Weights & Biases"
-  default     = "false"
+  default     = ""
 }
