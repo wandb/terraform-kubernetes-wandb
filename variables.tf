@@ -110,8 +110,13 @@ variable "redis_connection_string" {
   default     = ""
 }
 
-variable "publish_custom_metrics" {
+variable "cloud_monitoring_connection_string" {
   type        = string
-  description = "Publish custom metrics to monitor Weights & Biases"
+  description = "The cloud provider to publish custom system metrics to for monitoring single tenant instances"
   default     = ""
+
+  validation {
+    condition     = regex(["s3://", "gs://", "az://"], var.cloud_monitoring_connection_string)
+    error_message = "Valid values for cloud_monitoring_connection_string are s3://, gs://, or az://"
+  }
 }
