@@ -116,7 +116,7 @@ variable "cloud_monitoring_connection_string" {
   default     = ""
 
   validation {
-    condition     = regex(["s3://", "gs://", "az://"], var.cloud_monitoring_connection_string)
+    condition     = contains(["s3://", "gs://", "az://"], var.cloud_monitoring_connection_string)
     error_message = "Valid values for cloud_monitoring_connection_string are s3://, gs://, or az://"
   }
 }
