@@ -112,11 +112,6 @@ variable "redis_connection_string" {
 
 variable "cloud_monitoring_connection_string" {
   type        = string
-  description = "The cloud provider to publish custom system metrics to for monitoring single tenant instances"
+  description = "The cloud provider to publish custom system metrics to for monitoring. Possible values are s3://, gs://, or az://."
   default     = ""
-
-  validation {
-    condition     = contains(["s3://", "gs://", "az://"], var.cloud_monitoring_connection_string)
-    error_message = "Valid values for cloud_monitoring_connection_string are s3://, gs://, or az://"
-  }
 }
