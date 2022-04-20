@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.3](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.0.2...v1.0.3) (2022-04-20)
+
+
+### Bug Fixes
+
+* Publish custom metrics ([#9](https://github.com/wandb/terraform-kubernetes-wandb/issues/9)) ([3dc2c83](https://github.com/wandb/terraform-kubernetes-wandb/commit/3dc2c83e30ea25838037e6a5a788c01323b1c57b))
+
 ### [1.0.2](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.0.1...v1.0.2) (2022-02-11)
 
 
