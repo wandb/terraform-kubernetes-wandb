@@ -37,6 +37,13 @@ resource "kubernetes_deployment" "wandb" {
           image             = "${var.wandb_image}:${var.wandb_version}"
           image_pull_policy = "Always"
 
+          volume_mount {
+            count = var.redis_certificate != "" ? 1 : 0
+            mount_path = "/tmp/server_ca.pem"
+            sub_path = "server_ca.pem"
+            name       = local.app_name
+          }
+
           env {
             name  = "LICENSE"
             value = var.license
@@ -138,6 +145,12 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
         }
+        volume {
+          name =  local.app_name
+          config_map {
+            name = kubernetes_config_map.config_map.metadata.name
+          }
+        }
       }
     }
   }
@@ -163,5 +176,16 @@ resource "kubernetes_service" "service" {
       port      = 8080
       node_port = var.service_port
     }
+  }
+}
+
+resource "kubernetes_config_map" "config_map" {
+  count = var.redis_certificate != "" ? 1 : 0
+  metadata {
+    name = local.app_name
+  }
+
+  data = {
+    "server_ca.pem" = "${file("${path.module}/server_ca.pem")}"
   }
 }
