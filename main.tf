@@ -148,7 +148,7 @@ resource "kubernetes_deployment" "wandb" {
         volume {
           name =  local.app_name
           config_map {
-            name = kubernetes_config_map.config_map.metadata[0].name
+            name = kubernetes_config_map.config_map[0].metadata[0].name
           }
         }
       }
