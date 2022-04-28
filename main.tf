@@ -186,6 +186,6 @@ resource "kubernetes_config_map" "config_map" {
   }
 
   data = {
-    "server_ca.pem" = "${file("/etc/server_ca.pem")}"
+    "server_ca.pem" = var.redis_certificate
   }
 }
