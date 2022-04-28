@@ -181,6 +181,7 @@ resource "kubernetes_service" "service" {
 resource "kubernetes_config_map" "config_map" {
   metadata {
     name = local.app_name
+    namespace = "elaina-byob-testing"
   }
 
   data = {
