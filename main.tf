@@ -38,7 +38,6 @@ resource "kubernetes_deployment" "wandb" {
           image_pull_policy = "Always"
 
           volume_mount {
-            count = var.redis_certificate != "" ? 1 : 0
             mount_path = "/tmp/server_ca.pem"
             sub_path = "server_ca.pem"
             name       = local.app_name
