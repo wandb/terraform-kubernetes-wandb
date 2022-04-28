@@ -179,7 +179,6 @@ resource "kubernetes_service" "service" {
 }
 
 resource "kubernetes_config_map" "config_map" {
-  count = var.redis_certificate != "" ? 1 : 0
   metadata {
     name = local.app_name
   }
