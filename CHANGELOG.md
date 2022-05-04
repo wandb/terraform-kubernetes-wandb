@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.0.3...v1.1.0) (2022-05-04)
+
+
+### Features
+
+* Add option to mount redis cert ([#10](https://github.com/wandb/terraform-kubernetes-wandb/issues/10)) ([4f51ac4](https://github.com/wandb/terraform-kubernetes-wandb/commit/4f51ac43635a3094a7fe65c25a66336771e7a7f1))
+
 ### [1.0.3](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.0.2...v1.0.3) (2022-04-20)
 
 
