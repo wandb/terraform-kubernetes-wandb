@@ -1,5 +1,6 @@
 locals {
-  app_name = "wandb"
+  app_name           = "wandb"
+  redis_ca_cert_name = "server_ca.pem"
 }
 
 resource "kubernetes_deployment" "wandb" {
@@ -36,6 +37,12 @@ resource "kubernetes_deployment" "wandb" {
           name              = local.app_name
           image             = "${var.wandb_image}:${var.wandb_version}"
           image_pull_policy = "Always"
+
+          volume_mount {
+            mount_path = "/tmp/${local.redis_ca_cert_name}"
+            sub_path   = local.redis_ca_cert_name
+            name       = local.app_name
+          }
 
           env {
             name  = "LICENSE"
@@ -138,6 +145,13 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
         }
+        volume {
+          name = local.app_name
+          config_map {
+            name     = length(kubernetes_config_map.config_map) > 0 ? kubernetes_config_map.config_map[0].metadata[0].name : local.app_name
+            optional = true
+          }
+        }
       }
     }
   }
@@ -165,3 +179,15 @@ resource "kubernetes_service" "service" {
     }
   }
 }
+
+resource "kubernetes_config_map" "config_map" {
+  count = var.redis_ca_cert != "" ? 1 : 0
+  metadata {
+    name = local.app_name
+  }
+
+  data = {
+    "server_ca.pem" = var.redis_ca_cert
+  }
+}
+
