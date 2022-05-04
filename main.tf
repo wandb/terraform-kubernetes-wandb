@@ -1,5 +1,6 @@
 locals {
   app_name = "wandb"
+  redis_ca_cert_name = "server_ca.pem"
 }
 
 resource "kubernetes_deployment" "wandb" {
@@ -38,8 +39,8 @@ resource "kubernetes_deployment" "wandb" {
           image_pull_policy = "Always"
 
           volume_mount {
-            mount_path = "/tmp/server_ca.pem"
-            sub_path   = "server_ca.pem"
+            mount_path = "/tmp/${local.redis_ca_cert_name}"
+            sub_path   = local.redis_ca_cert_name
             name       = local.app_name
           }
 
@@ -147,7 +148,7 @@ resource "kubernetes_deployment" "wandb" {
         volume {
           name =  local.app_name
           config_map {
-            name = kubernetes_config_map.config_map.0.metadata.0.name
+            name = kubernetes_config_map.config_map.count != 0 ? kubernetes_config_map.config_map.0.metadata.0.name : ""
             optional = true
           }
         }
@@ -180,12 +181,12 @@ resource "kubernetes_service" "service" {
 }
 
 resource "kubernetes_config_map" "config_map" {
-  count = var.redis_certificate != "" ? 1 : 0
+  count = var.redis_ca_cert != "" ? 1 : 0
   metadata {
     name = local.app_name
   }
 
   data = {
-    "server_ca.pem" = var.redis_certificate
+    "(local.redis_ca_cert_name)" = var.redis_ca_cert
   }
 }
