@@ -187,6 +187,6 @@ resource "kubernetes_config_map" "config_map" {
   }
 
   data = {
-    "(local.redis_ca_cert_name)" = var.redis_ca_cert
+    "server_ca.pem" = var.redis_ca_cert
   }
 }
