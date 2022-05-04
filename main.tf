@@ -1,5 +1,5 @@
 locals {
-  app_name = "wandb"
+  app_name           = "wandb"
   redis_ca_cert_name = "server_ca.pem"
 }
 
@@ -146,9 +146,9 @@ resource "kubernetes_deployment" "wandb" {
           }
         }
         volume {
-          name =  local.app_name
+          name = local.app_name
           config_map {
-            name = length(kubernetes_config_map.config_map) > 0 ? kubernetes_config_map.config_map[0].metadata[0].name : local.app_name
+            name     = length(kubernetes_config_map.config_map) > 0 ? kubernetes_config_map.config_map[0].metadata[0].name : local.app_name
             optional = true
           }
         }
@@ -190,3 +190,4 @@ resource "kubernetes_config_map" "config_map" {
     "server_ca.pem" = var.redis_ca_cert
   }
 }
+

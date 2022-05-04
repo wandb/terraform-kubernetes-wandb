@@ -111,9 +111,9 @@ variable "redis_connection_string" {
 }
 
 variable "redis_ca_cert" {
-  type = string
+  type        = string
   description = "The redis CA certificate."
-  default = ""
+  default     = ""
 }
 
 variable "cloud_monitoring_connection_string" {
