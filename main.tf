@@ -39,7 +39,7 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             mount_path = "/tmp/server_ca.pem"
-            sub_path = "server_ca.pem"
+            sub_path   = "server_ca.pem"
             name       = local.app_name
           }
 
@@ -148,6 +148,7 @@ resource "kubernetes_deployment" "wandb" {
           name =  local.app_name
           config_map {
             name = kubernetes_config_map.config_map.metadata[0].name
+            optional = true
           }
         }
       }
@@ -179,6 +180,7 @@ resource "kubernetes_service" "service" {
 }
 
 resource "kubernetes_config_map" "config_map" {
+  count = var.redis_certificate != "" ? 1 : 0
   metadata {
     name = local.app_name
   }
