@@ -112,7 +112,7 @@ variable "redis_connection_string" {
 
 variable "redis_ca_cert" {
   type        = string
-  description = "The redis CA certificate."
+  description = "The redis certificate authority."
   default     = ""
 }
 
