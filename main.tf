@@ -39,7 +39,7 @@ resource "kubernetes_deployment" "wandb" {
           image_pull_policy = "Always"
 
           volume_mount {
-            mount_path = "/tmp/${local.redis_ca_cert_name}"
+            mount_path = "/etc/ssl/certs/${local.redis_ca_cert_name}"
             sub_path   = local.redis_ca_cert_name
             name       = local.app_name
           }
