@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.1.1](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.1.0...v1.1.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* Update cert path ([#11](https://github.com/wandb/terraform-kubernetes-wandb/issues/11)) ([fcf8aef](https://github.com/wandb/terraform-kubernetes-wandb/commit/fcf8aef30f82527ced96470c2fd98cc6205eaeeb))
+
 ## [1.1.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.0.3...v1.1.0) (2022-05-04)
 
 
