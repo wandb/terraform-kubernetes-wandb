@@ -181,7 +181,6 @@ resource "kubernetes_service" "service" {
 }
 
 resource "kubernetes_config_map" "config_map" {
-  count = var.redis_ca_cert != "" ? 1 : 0
   metadata {
     name = local.app_name
   }
@@ -189,9 +188,5 @@ resource "kubernetes_config_map" "config_map" {
   data = {
     "server_ca.pem" = var.redis_ca_cert
   }
-
-  depends_on = [
-    var.redis_ca_cert
-  ]
 }
 
