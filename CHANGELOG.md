@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.1.2](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.1.1...v1.1.2) (2022-05-10)
+
+
+### Bug Fixes
+
+* Remove count on config map ([#12](https://github.com/wandb/terraform-kubernetes-wandb/issues/12)) ([ed00777](https://github.com/wandb/terraform-kubernetes-wandb/commit/ed00777d27b0c6bfa3f8b5cd1cb23012ecfffe0d))
+
 ### [1.1.1](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.1.0...v1.1.1) (2022-05-05)
 
 
