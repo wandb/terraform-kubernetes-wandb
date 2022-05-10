@@ -110,7 +110,6 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            count = var.cloud_monitoring_connection_string != "" ? 1 : 0
             name  = "GORILLA_CUSTOM_METRICS_PROVIDER"
             value = var.cloud_monitoring_connection_string
           }
