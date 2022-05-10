@@ -110,6 +110,7 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
+            count = var.cloud_monitoring_connection_string != "" ? 1 : 0
             name  = "GORILLA_CUSTOM_METRICS_PROVIDER"
             value = var.cloud_monitoring_connection_string
           }
@@ -148,7 +149,7 @@ resource "kubernetes_deployment" "wandb" {
         volume {
           name = local.app_name
           config_map {
-            name     = length(kubernetes_config_map.config_map) > 0 ? kubernetes_config_map.config_map[0].metadata[0].name : local.app_name
+            name     = kubernetes_config_map.config_map.metadata[0].name
             optional = true
           }
         }
@@ -181,7 +182,6 @@ resource "kubernetes_service" "service" {
 }
 
 resource "kubernetes_config_map" "config_map" {
-  count = var.redis_ca_cert != "" ? 1 : 0
   metadata {
     name = local.app_name
   }
