@@ -73,8 +73,8 @@ resource "kubernetes_deployment" "wandb" {
             name  = "MYSQL"
             value_from {
               secret_key_ref {
-                name = "database_connection_string"
-                key = "${kubernetes_secret.secret.data.MYSQL}"
+                name = local.app_name
+                key = "MYSQL"
               }
             }
           }
