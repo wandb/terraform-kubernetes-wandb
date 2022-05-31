@@ -69,10 +69,10 @@ resource "kubernetes_deployment" "wandb" {
             value = var.bucket_aws_region
           }
 
-          # env {
-          #   name  = "MYSQL"
-          #   value = var.database_connection_string
-          # }
+          env {
+            name  = "MYSQL"
+            value = var.database_connection_string
+          }
 
           env {
             name  = "HOST"
