@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.1.3](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.1.2...v1.1.3) (2022-06-16)
+
+
+### Bug Fixes
+
+* Change connection string to use kubernetes secret ([#13](https://github.com/wandb/terraform-kubernetes-wandb/issues/13)) ([5093996](https://github.com/wandb/terraform-kubernetes-wandb/commit/5093996aa448942b9dfe14f2e3d98ef7451f62ea))
+
 ### [1.1.2](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.1.1...v1.1.2) (2022-05-10)
 
 
