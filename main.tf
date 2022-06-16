@@ -45,6 +45,26 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
+            name  = "GORILLA_MEM_REQUEST"
+            value_from {
+              resource_field_ref {
+                container_name = local.app_name
+                resource       = "requests.memory"
+              }
+            }
+          }
+
+          env {
+            name  = "GORILLA_MEM_LIMIT"
+            value_from {
+              resource_field_ref {
+                container_name = local.app_name
+                resource       = "limits.memory"
+              }
+            }
+          }
+
+          env {
             name  = "LICENSE"
             value = var.license
           }
