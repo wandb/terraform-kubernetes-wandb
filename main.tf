@@ -155,22 +155,22 @@ resource "kubernetes_deployment" "wandb" {
           name = "fluentd"
           image = "fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch"
 
-          volume_mount {
-            name = "fluentd-config"
-            mount_path = "/fluentd/etc/fluent.conf"
-            sub_path = "fluent.conf"
-          }
+          # volume_mount {
+          #   name = "fluentd-config"
+          #   mount_path = "/fluentd/etc/fluent.conf"
+          #   sub_path = "fluent.conf"
+          # }
 
-          volume_mount {
-            name = "varlog"
-            mount_path = "/var/log"
-          }
+          # volume_mount {
+          #   name = "varlog"
+          #   mount_path = "/var/log"
+          # }
 
-          volume_mount {
-            name = "varlibdockercontainers"
-            mount_path = "/var/lib/docker/containers"
-            read_only = "true"
-          }
+          # volume_mount {
+          #   name = "varlibdockercontainers"
+          #   mount_path = "/var/lib/docker/containers"
+          #   read_only = "true"
+          # }
 
           env {
             name = "FLUENT_ELASTICSEARCH_HOST"
