@@ -163,13 +163,13 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             name = "varlog"
-            mountPath = "/var/log"
+            mount_path = "/var/log"
           }
 
           volume_mount {
             name = "varlibdockercontainers"
-            mountPath = "/var/lib/docker/containers"
-            readOnly = "true"
+            mount_path = "/var/lib/docker/containers"
+            read_only = "true"
           }
 
           env {
