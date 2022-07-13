@@ -216,37 +216,6 @@ resource "kubernetes_deployment" "wandb" {
   }
 }
 
-# resource "kubernetes_deployment" "sidecar" {
-#   metadata {
-#     name = "logger"
-#     labels = {
-#       app = "logger"
-#     }
-#   }
-
-#   spec {
-#     replicas = 1
-
-#     selector {
-#       match_labels = {
-#         app = "logger"
-#       }
-#     }
-
-#     template {
-#       metadata {
-#         labels = {
-#           app = "logger"
-#         }
-#       }
-
-#       spec {
-
-#       }
-#     }
-#   }
-# }
-
 resource "kubernetes_service" "service" {
   metadata {
     name = local.app_name
@@ -270,7 +239,8 @@ resource "kubernetes_config_map" "config_map" {
   }
 
   data = {
-    "server_ca.pem" = var.redis_ca_cert
+    "server_ca.pem" = var.redis_ca_cert,
+    "fluent.conf" = "<source> @type tail path /var/log/gorilla.log </source>"
   }
 }
 
