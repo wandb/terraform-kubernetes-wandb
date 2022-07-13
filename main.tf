@@ -44,6 +44,11 @@ resource "kubernetes_deployment" "wandb" {
             name       = local.app_name
           }
 
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log"
+          }
+
           env {
             name  = "LICENSE"
             value = var.license
@@ -165,10 +170,10 @@ resource "kubernetes_deployment" "wandb" {
           #   sub_path = "fluent.conf"
           # }
 
-          # volume_mount {
-          #   name = "varlog"
-          #   mount_path = "/var/log"
-          # }
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log"
+          }
 
           # volume_mount {
           #   name = "varlibdockercontainers"
@@ -211,7 +216,7 @@ resource "kubernetes_deployment" "wandb" {
         }
 
         volume {
-          name = "shared-logs"
+          name = "varlog"
           empty_dir {
             
           }
