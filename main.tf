@@ -46,7 +46,7 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             name = "varlog"
-            mount_path = "/var/log"
+            mount_path = "pvc/var/log"
           }
 
           env {
@@ -172,7 +172,7 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             name = "varlog"
-            mount_path = "/var/log"
+            mount_path = "pvc/var/log"
           }
 
           # volume_mount {
