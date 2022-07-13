@@ -46,7 +46,7 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             name = "varlog"
-            mount_path = "pvc/var/log"
+            mount_path = "/pvc/var/log"
           }
 
           env {
@@ -160,7 +160,7 @@ resource "kubernetes_deployment" "wandb" {
           name = "sidecar"
           image = "busybox"
 
-          args = [ "/bin/sh", "-c", "tail -n+1 -f pvc/var/log/gorilla.log" ]
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /pvc/var/log/gorilla.log" ]
           # name = "fluentd"
           # image = "fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch"
 
@@ -172,7 +172,7 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             name = "varlog"
-            mount_path = "pvc/var/log"
+            mount_path = "/pvc/var/log"
           }
 
           # volume_mount {
