@@ -150,6 +150,54 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
         }
+
+        container {
+          name = "fluentd"
+          image = "fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch"
+
+          volume_mount {
+            name = "fluentd-config"
+            mount_path = "/fluentd/etc/fluent.conf"
+            sub_path = "fluent.conf"
+          }
+
+          volume_mount {
+            name = "varlog"
+            mountPath = "/var/log"
+          }
+
+          volume_mount {
+            name = "varlibdockercontainers"
+            mountPath = "/var/lib/docker/containers"
+            readOnly = "true"
+          }
+
+          env {
+            name = "FLUENT_ELASTICSEARCH_HOST"
+            value = var.host
+          }
+          env {
+            name = "FLUENT_ELASTICSEARCH_PORT"
+            value = "9200"
+          }
+          env {
+            name = "FLUENT_ELASTICSEARCH_SCHEME"
+            value = "http"
+          }
+          env {
+            name = "FLUENT_ELASTICSEARCH_USER"
+            value = "elastic"
+          }
+          env {
+            name = "FLUENT_ELASTICSEARCH_PASSWORD"
+            value = "mypassword"
+          }
+          env {
+            name = FLUENT_UID
+            value = "0"
+          }
+        }
+
         volume {
           name = local.app_name
           config_map {
@@ -167,6 +215,37 @@ resource "kubernetes_deployment" "wandb" {
     delete = "10m"
   }
 }
+
+# resource "kubernetes_deployment" "sidecar" {
+#   metadata {
+#     name = "logger"
+#     labels = {
+#       app = "logger"
+#     }
+#   }
+
+#   spec {
+#     replicas = 1
+
+#     selector {
+#       match_labels = {
+#         app = "logger"
+#       }
+#     }
+
+#     template {
+#       metadata {
+#         labels = {
+#           app = "logger"
+#         }
+#       }
+
+#       spec {
+
+#       }
+#     }
+#   }
+# }
 
 resource "kubernetes_service" "service" {
   metadata {
