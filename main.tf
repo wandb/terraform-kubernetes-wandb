@@ -193,7 +193,7 @@ resource "kubernetes_deployment" "wandb" {
             value = "mypassword"
           }
           env {
-            name = FLUENT_UID
+            name = "FLUENT_UID"
             value = "0"
           }
         }
