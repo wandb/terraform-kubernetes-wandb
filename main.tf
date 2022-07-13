@@ -152,8 +152,12 @@ resource "kubernetes_deployment" "wandb" {
         }
 
         container {
-          name = "fluentd"
-          image = "fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch"
+          name = "sidecar"
+          image = "busybox"
+
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
+          # name = "fluentd"
+          # image = "fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch"
 
           # volume_mount {
           #   name = "fluentd-config"
@@ -172,30 +176,30 @@ resource "kubernetes_deployment" "wandb" {
           #   read_only = "true"
           # }
 
-          env {
-            name = "FLUENT_ELASTICSEARCH_HOST"
-            value = var.host
-          }
-          env {
-            name = "FLUENT_ELASTICSEARCH_PORT"
-            value = "9200"
-          }
-          env {
-            name = "FLUENT_ELASTICSEARCH_SCHEME"
-            value = "http"
-          }
-          env {
-            name = "FLUENT_ELASTICSEARCH_USER"
-            value = "elastic"
-          }
-          env {
-            name = "FLUENT_ELASTICSEARCH_PASSWORD"
-            value = "mypassword"
-          }
-          env {
-            name = "FLUENT_UID"
-            value = "0"
-          }
+          # env {
+          #   name = "FLUENT_ELASTICSEARCH_HOST"
+          #   value = var.host
+          # }
+          # env {
+          #   name = "FLUENT_ELASTICSEARCH_PORT"
+          #   value = "9200"
+          # }
+          # env {
+          #   name = "FLUENT_ELASTICSEARCH_SCHEME"
+          #   value = "http"
+          # }
+          # env {
+          #   name = "FLUENT_ELASTICSEARCH_USER"
+          #   value = "elastic"
+          # }
+          # env {
+          #   name = "FLUENT_ELASTICSEARCH_PASSWORD"
+          #   value = "mypassword"
+          # }
+          # env {
+          #   name = "FLUENT_UID"
+          #   value = "0"
+          # }
         }
 
         volume {
@@ -203,6 +207,13 @@ resource "kubernetes_deployment" "wandb" {
           config_map {
             name     = kubernetes_config_map.config_map.metadata[0].name
             optional = true
+          }
+        }
+
+        volume {
+          name = "shared-logs"
+          empty_dir {
+            
           }
         }
       }
@@ -240,7 +251,7 @@ resource "kubernetes_config_map" "config_map" {
 
   data = {
     "server_ca.pem" = var.redis_ca_cert,
-    "fluent.conf" = "<source> @type tail path /var/log/gorilla.log </source>"
+    # "fluent.conf" = "<source> @type tail path /var/log/gorilla.log </source>"
   }
 }
 
