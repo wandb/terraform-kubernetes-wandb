@@ -161,7 +161,7 @@ resource "kubernetes_deployment" "wandb" {
           image = "busybox"
 
           # args = [ "/bin/sh", "docker exec", "${local.app_name}", "tail -f /var/log/gorilla.log" ]
-          args = [ "/bin/sh", "-c", "tail -n+1 -f /pvc/var/log/gorilla.log" ]
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
           # name = "fluentd"
           # image = "fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch"
 
