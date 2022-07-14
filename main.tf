@@ -44,10 +44,10 @@ resource "kubernetes_deployment" "wandb" {
             name       = local.app_name
           }
 
-          # volume_mount {
-          #   name = "varlog"
-          #   mount_path = "/pvc/var/log"
-          # }
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log/nginx"
+          }
 
           env {
             name  = "LICENSE"
@@ -160,8 +160,8 @@ resource "kubernetes_deployment" "wandb" {
           name = "sidecar"
           image = "busybox"
 
-          args = [ "/bin/sh", "docker exec", "${local.app_name}", "tail -f /var/log/gorilla.log" ]
-          # args = [ "/bin/sh", "-c", "tail -n+1 -f /pvc/var/log/gorilla.log" ]
+          # args = [ "/bin/sh", "docker exec", "${local.app_name}", "tail -f /var/log/gorilla.log" ]
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /pvc/var/log/gorilla.log" ]
           # name = "fluentd"
           # image = "fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch"
 
@@ -171,10 +171,10 @@ resource "kubernetes_deployment" "wandb" {
           #   sub_path = "fluent.conf"
           # }
 
-          # volume_mount {
-          #   name = "varlog"
-          #   mount_path = "/pvc/var/log"
-          # }
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log"
+          }
 
           # volume_mount {
           #   name = "varlibdockercontainers"
@@ -216,12 +216,12 @@ resource "kubernetes_deployment" "wandb" {
           }
         }
 
-        # volume {
-        #   name = "varlog"
-        #   empty_dir {
+        volume {
+          name = "varlog"
+          empty_dir {
             
-        #   }
-        # }
+          }
+        }
       }
     }
   }
