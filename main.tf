@@ -45,8 +45,13 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           volume_mount {
-            name = "varlog"
-            mount_path = "/var/log/nginx"
+            name = "gorilla"
+            mount_path = "/var/log/gorilla.log"
+          }
+
+          volume_mount {
+            name = "local"
+            mount_path = "/var/log/local.log"
           }
 
           env {
@@ -160,54 +165,15 @@ resource "kubernetes_deployment" "wandb" {
           name = "sidecar"
           image = "busybox"
 
-          # args = [ "/bin/sh", "docker exec", "${local.app_name}", "tail -f /var/log/gorilla.log" ]
-          # args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
-          command = ["/bin/echo"]
-          args = ["test"]
-          # name = "fluentd"
-          # image = "fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch"
-
-          # volume_mount {
-          #   name = "fluentd-config"
-          #   mount_path = "/fluentd/etc/fluent.conf"
-          #   sub_path = "fluent.conf"
-          # }
-
           volume_mount {
-            name = "varlog"
-            mount_path = "/var/log/nginx"
+            name = "gorilla"
+            mount_path = "/var/log/gorilla.log"
           }
 
-          # volume_mount {
-          #   name = "varlibdockercontainers"
-          #   mount_path = "/var/lib/docker/containers"
-          #   read_only = "true"
-          # }
-
-          # env {
-          #   name = "FLUENT_ELASTICSEARCH_HOST"
-          #   value = var.host
-          # }
-          # env {
-          #   name = "FLUENT_ELASTICSEARCH_PORT"
-          #   value = "9200"
-          # }
-          # env {
-          #   name = "FLUENT_ELASTICSEARCH_SCHEME"
-          #   value = "http"
-          # }
-          # env {
-          #   name = "FLUENT_ELASTICSEARCH_USER"
-          #   value = "elastic"
-          # }
-          # env {
-          #   name = "FLUENT_ELASTICSEARCH_PASSWORD"
-          #   value = "mypassword"
-          # }
-          # env {
-          #   name = "FLUENT_UID"
-          #   value = "0"
-          # }
+          volume_mount {
+            name = "local"
+            mount_path = "/var/log/local.log"
+          }
         }
 
         volume {
@@ -219,10 +185,11 @@ resource "kubernetes_deployment" "wandb" {
         }
 
         volume {
-          name = "varlog"
-          empty_dir {
-            
-          }
+          name = "gorilla"
+        }
+
+        volume {
+          name = "local"
         }
       }
     }
@@ -258,8 +225,7 @@ resource "kubernetes_config_map" "config_map" {
   }
 
   data = {
-    "server_ca.pem" = var.redis_ca_cert,
-    # "fluent.conf" = "<source> @type tail path /var/log/gorilla.log </source>"
+    "server_ca.pem" = var.redis_ca_cert
   }
 }
 
