@@ -174,6 +174,8 @@ resource "kubernetes_deployment" "wandb" {
             name = "local"
             mount_path = "/var/log/local.log"
           }
+
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
         }
 
         volume {
