@@ -48,7 +48,7 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             name = "varlog"
-            mount_path = "/var/log"
+            mount_path = "/var/log/nginx"
           }
 
           # volume_mount {
@@ -178,7 +178,7 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             name = "varlog"
-            mount_path = "/var/log"
+            mount_path = "/var/log/nginx"
           }
 
           # volume_mount {
@@ -196,7 +196,7 @@ resource "kubernetes_deployment" "wandb" {
           # command = [ "sleep", "86400" ]
           # args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
           command = [ "/bin/sh", "-c" ]
-          args = [ "mkdir -p /var/log/nginx; tail -n+1 -f /var/log/gorilla.log" ]
+          args = [ "tail -n+1 -f /var/log/gorilla.log" ]
         }
 
         volume {
