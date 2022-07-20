@@ -169,7 +169,7 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
 
-          command = [ "/bin/sh", "-c", "mkdir -p /var/log/nginx" ]
+          # command = [ "/bin/sh", "-c", "mkdir -p /var/log/nginx" ]
         }
 
         container {
@@ -193,8 +193,10 @@ resource "kubernetes_deployment" "wandb" {
           #   sub_path = local.local
           # }
 
+          # command = [ "sleep", "86400" ]
           # args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
-          command = [ "sleep", "86400" ]
+          command = [ "/bin/sh", "-c" ]
+          args = [ "mkdir -p /var/log/nginx; tail -n+1 -f /var/log/gorilla.log" ]
         }
 
         volume {
