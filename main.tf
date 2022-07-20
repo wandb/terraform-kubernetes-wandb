@@ -1,8 +1,8 @@
 locals {
   app_name           = "wandb"
   redis_ca_cert_name = "server_ca.pem"
-  gorilla = "gorilla.log"
-  local = "local.log"
+  # gorilla = "gorilla.log"
+  # local = "local.log"
 }
 
 resource "kubernetes_deployment" "wandb" {
@@ -47,16 +47,21 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           volume_mount {
-            name = "gorilla"
-            mount_path = "/var/log/${local.gorilla}"
-            sub_path = local.gorilla
+            name = "varlog"
+            mount_path = "/var/log"
           }
 
-          volume_mount {
-            name = "local"
-            mount_path = "/var/log/${local.local}"
-            sub_path = local.local
-          }
+          # volume_mount {
+          #   name = "gorilla"
+          #   mount_path = "/var/log/${local.gorilla}"
+          #   sub_path = local.gorilla
+          # }
+
+          # volume_mount {
+          #   name = "local"
+          #   mount_path = "/var/log/${local.local}"
+          #   sub_path = local.local
+          # }
 
           env {
             name  = "LICENSE"
@@ -163,6 +168,8 @@ resource "kubernetes_deployment" "wandb" {
               memory = "8G"
             }
           }
+
+          args = [ "/bin/sh", "-c", "mkdir /var/log/nginx" ]
         }
 
         container {
@@ -170,16 +177,21 @@ resource "kubernetes_deployment" "wandb" {
           image = "busybox"
 
           volume_mount {
-            name = "gorilla"
-            mount_path = "/var/log/${local.gorilla}"
-            sub_path = local.gorilla
+            name = "varlog"
+            mount_path = "/var/log"
           }
 
-          volume_mount {
-            name = "local" 
-            mount_path = "/var/log/${local.local}"
-            sub_path = local.local
-          }
+          # volume_mount {
+          #   name = "gorilla"
+          #   mount_path = "/var/log/${local.gorilla}"
+          #   sub_path = local.gorilla
+          # }
+
+          # volume_mount {
+          #   name = "local" 
+          #   mount_path = "/var/log/${local.local}"
+          #   sub_path = local.local
+          # }
 
           args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
         }
@@ -197,28 +209,35 @@ resource "kubernetes_deployment" "wandb" {
         }
 
         volume {
-          name = "gorilla"
-          config_map {
-            name = kubernetes_config_map.config_map.metadata[0].name
-            items {
-              key = "gorilla.log"
-              path = "gorilla.log"
-            }
-            optional = true
+          name = "varlog"
+          empty_dir {
+            
           }
         }
 
-        volume {
-          name = "local"
-          config_map {
-            name = kubernetes_config_map.config_map.metadata[0].name
-            items {
-              key = "local.log"
-              path = "local.log"
-            }
-            optional = true
-          }
-        }
+        # volume {
+        #   name = "gorilla"
+        #   config_map {
+        #     name = kubernetes_config_map.config_map.metadata[0].name
+        #     items {
+        #       key = "gorilla.log"
+        #       path = "gorilla.log"
+        #     }
+        #     optional = true
+        #   }
+        # }
+
+        # volume {
+        #   name = "local"
+        #   config_map {
+        #     name = kubernetes_config_map.config_map.metadata[0].name
+        #     items {
+        #       key = "local.log"
+        #       path = "local.log"
+        #     }
+        #     optional = true
+        #   }
+        # }
       }
     }
   }
