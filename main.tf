@@ -46,22 +46,23 @@ resource "kubernetes_deployment" "wandb" {
             name       = local.app_name
           }
 
+          # volume_mount {
+          #   name = "varlog"
+          #   mount_path = "/var/log/gorilla.log"
+          #   sub_path = "gorilla.log"
+          # }
+
           volume_mount {
-            name = "varlog"
-            mount_path = "/var/log/nginx"
+            name = "gorilla-logs"
+            mount_path = "/var/log/gorilla.log"
+            sub_path = "gorilla.log"
           }
 
-          # volume_mount {
-          #   name = "gorilla"
-          #   mount_path = "/var/log/${local.gorilla}"
-          #   sub_path = local.gorilla
-          # }
-
-          # volume_mount {
-          #   name = "local"
-          #   mount_path = "/var/log/${local.local}"
-          #   sub_path = local.local
-          # }
+          volume_mount {
+            name = "local-logs"
+            mount_path = "/var/log/local.log"
+            sub_path = "local.log"
+          }
 
           env {
             name  = "LICENSE"
@@ -176,9 +177,15 @@ resource "kubernetes_deployment" "wandb" {
           name = "sidecar-gorilla"
           image = "busybox"
 
+          # volume_mount {
+          #   name = "varlog"
+          #   mount_path = "/var/log"
+          # }
+
           volume_mount {
-            name = "varlog"
-            mount_path = "/var/log"
+            name = "gorilla-logs"
+            mount_path = "/var/log/gorilla.log"
+            sub_path = "gorilla.log"
           }
 
           # volume_mount {
@@ -203,9 +210,15 @@ resource "kubernetes_deployment" "wandb" {
           name = "sidecar-local"
           image = "busybox"
 
+          # volume_mount {
+          #   name = "varlog"
+          #   mount_path = "/var/log"
+          # }
+
           volume_mount {
-            name = "varlog"
-            mount_path = "/var/log"
+            name = "local-logs"
+            mount_path = "/var/log/local.log"
+            sub_path = "local.log"
           }
 
           command = [ "/bin/sh", "-c" ]
@@ -216,44 +229,40 @@ resource "kubernetes_deployment" "wandb" {
           name = local.app_name
           config_map {
             name     = kubernetes_config_map.config_map.metadata[0].name
-            items {
-              key = "server_ca.pem"
-              path = "server_ca.pem"
-            }
             optional = true
           }
         }
 
-        volume {
-          name = "varlog"
-          empty_dir {
+        # volume {
+        #   name = "varlog"
+        #   empty_dir {
             
-          }
+        #   }
+        # }
+
+        volume {
+          name = "gorilla-logs"
+          # config_map {
+          #   name = kubernetes_config_map.config_map.metadata[0].name
+          #   items {
+          #     key = "gorilla.log"
+          #     path = "gorilla.log"
+          #   }
+          #   optional = true
+          # }
         }
 
-        # volume {
-        #   name = "gorilla"
-        #   config_map {
-        #     name = kubernetes_config_map.config_map.metadata[0].name
-        #     items {
-        #       key = "gorilla.log"
-        #       path = "gorilla.log"
-        #     }
-        #     optional = true
-        #   }
-        # }
-
-        # volume {
-        #   name = "local"
-        #   config_map {
-        #     name = kubernetes_config_map.config_map.metadata[0].name
-        #     items {
-        #       key = "local.log"
-        #       path = "local.log"
-        #     }
-        #     optional = true
-        #   }
-        # }
+        volume {
+          name = "local-logs"
+          # config_map {
+          #   name = kubernetes_config_map.config_map.metadata[0].name
+          #   items {
+          #     key = "local.log"
+          #     path = "local.log"
+          #   }
+          #   optional = true
+          # }
+        }
       }
     }
   }
@@ -288,9 +297,9 @@ resource "kubernetes_config_map" "config_map" {
   }
 
   data = {
-    "server_ca.pem" = var.redis_ca_cert,
-    "gorilla.log" = "",
-    "local.log" = "",
+    "server_ca.pem" = var.redis_ca_cert
+    # "gorilla.log" = "",
+    # "local.log" = "",
   }
 }
 
