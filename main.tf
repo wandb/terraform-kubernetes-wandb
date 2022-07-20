@@ -169,7 +169,8 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
 
-          args = [ "/bin/sh", "-c", "mkdir -p /var/log/nginx" ]
+          # args = [ "/bin/sh", "-c", "mkdir -p /var/log/nginx" ]
+          command = [ "sleep", "86400" ]
         }
 
         container {
