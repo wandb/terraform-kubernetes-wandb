@@ -169,7 +169,7 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
 
-          args = [ "/bin/sh", "-c", "mkdir /var/log/nginx" ]
+          # args = [ "/bin/sh", "-c", "mkdir /var/log/nginx" ]
         }
 
         container {
