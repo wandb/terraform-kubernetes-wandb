@@ -178,7 +178,7 @@ resource "kubernetes_deployment" "wandb" {
 
           volume_mount {
             name = "varlog"
-            mount_path = "/var/log/nginx"
+            mount_path = "/var/log"
           }
 
           # volume_mount {
