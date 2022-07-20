@@ -173,7 +173,7 @@ resource "kubernetes_deployment" "wandb" {
         }
 
         container {
-          name = "sidecar"
+          name = "sidecar-gorilla"
           image = "busybox"
 
           volume_mount {
@@ -193,10 +193,23 @@ resource "kubernetes_deployment" "wandb" {
           #   sub_path = local.local
           # }
 
-          command = [ "sleep", "86400" ]
+          # command = [ "sleep", "86400" ]
           # args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
-          # command = [ "/bin/sh", "-c" ]
-          # args = [ "tail -n+1 -f /var/log/gorilla.log" ]
+          command = [ "/bin/sh", "-c" ]
+          args = [ "tail -n+1 -f /var/log/gorilla.log" ]
+        }
+
+        container {
+          name = "sidecar-local"
+          image = "busybox"
+
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log"
+          }
+
+          command = [ "/bin/sh", "-c" ]
+          args = [ "tail -n+1 -f /var/log/local.log" ]
         }
 
         volume {
