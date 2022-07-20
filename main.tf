@@ -193,10 +193,10 @@ resource "kubernetes_deployment" "wandb" {
           #   sub_path = local.local
           # }
 
-          # command = [ "sleep", "86400" ]
+          command = [ "sleep", "86400" ]
           # args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
-          command = [ "/bin/sh", "-c" ]
-          args = [ "tail -n+1 -f /var/log/gorilla.log" ]
+          # command = [ "/bin/sh", "-c" ]
+          # args = [ "tail -n+1 -f /var/log/gorilla.log" ]
         }
 
         volume {
