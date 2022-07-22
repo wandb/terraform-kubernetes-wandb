@@ -33,6 +33,18 @@ resource "kubernetes_deployment" "wandb" {
       }
 
       spec {
+        init_container {
+          name = "create-nginx"
+          image = "busybox"
+
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log/"
+          }
+
+          command = [ "/bin/sh", "-c", "mkdir -p /var/log/nginx && chmod g+w /var/log/nginx" ]
+        }
+
         container {
           name              = local.app_name
           image             = "${var.wandb_image}:${var.wandb_version}"
@@ -42,6 +54,11 @@ resource "kubernetes_deployment" "wandb" {
             mount_path = "/etc/ssl/certs/${local.redis_ca_cert_name}"
             sub_path   = local.redis_ca_cert_name
             name       = local.app_name
+          }
+
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log/"
           }
 
           env {
@@ -150,11 +167,43 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
         }
+
+        container {
+          name = "sidecar-gorilla"
+          image = "busybox"
+
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log"
+          }
+
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
+        }
+
+        container {
+          name = "sidecar-local"
+          image = "busybox"
+
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log/"
+          }
+
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/local.log" ]
+        }
+
         volume {
           name = local.app_name
           config_map {
             name     = kubernetes_config_map.config_map.metadata[0].name
             optional = true
+          }
+        }
+
+        volume {
+          name = "varlog"
+          empty_dir {
+            
           }
         }
       }
