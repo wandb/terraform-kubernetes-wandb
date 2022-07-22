@@ -35,6 +35,18 @@ resource "kubernetes_deployment" "wandb" {
       }
 
       spec {
+        init_container {
+          name = "create-nginx"
+          image = "busybox"
+
+          volume_mount {
+            name = "varlog"
+            mount_path = "/var/log/"
+          }
+
+          command = [ "/bin/sh", "-c", "mkdir -p /var/log/nginx" ]
+        }
+
         container {
           name              = local.app_name
           image             = "${var.wandb_image}:${var.wandb_version}"
@@ -46,22 +58,9 @@ resource "kubernetes_deployment" "wandb" {
             name       = local.app_name
           }
 
-          # volume_mount {
-          #   name = "varlog"
-          #   mount_path = "/var/log/gorilla.log"
-          #   sub_path = "gorilla.log"
-          # }
-
           volume_mount {
-            name = "gorilla-logs"
-            mount_path = "/var/log/gorilla.log"
-            sub_path = "gorilla.log"
-          }
-
-          volume_mount {
-            name = "local-logs"
-            mount_path = "/var/log/local.log"
-            sub_path = "local.log"
+            name = "varlog"
+            mount_path = "/var/log/"
           }
 
           env {
@@ -169,23 +168,15 @@ resource "kubernetes_deployment" "wandb" {
               memory = "8G"
             }
           }
-
-          # command = [ "/bin/sh", "-c", "mkdir -p /var/log/nginx" ]
         }
 
         container {
           name = "sidecar-gorilla"
           image = "busybox"
 
-          # volume_mount {
-          #   name = "varlog"
-          #   mount_path = "/var/log"
-          # }
-
           volume_mount {
-            name = "gorilla-logs"
-            mount_path = "/var/log/gorilla.log"
-            sub_path = "gorilla.log"
+            name = "varlog"
+            mount_path = "/var/log"
           }
 
           # volume_mount {
@@ -201,28 +192,19 @@ resource "kubernetes_deployment" "wandb" {
           # }
 
           # command = [ "sleep", "86400" ]
-          # args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
-          command = [ "/bin/sh", "-c" ]
-          args = [ "tail -n+1 -f /var/log/gorilla.log" ]
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/gorilla.log" ]
         }
 
         container {
           name = "sidecar-local"
           image = "busybox"
 
-          # volume_mount {
-          #   name = "varlog"
-          #   mount_path = "/var/log"
-          # }
-
           volume_mount {
-            name = "local-logs"
-            mount_path = "/var/log/local.log"
-            sub_path = "local.log"
+            name = "varlog"
+            mount_path = "/var/log/"
           }
 
-          command = [ "/bin/sh", "-c" ]
-          args = [ "tail -n+1 -f /var/log/local.log" ]
+          args = [ "/bin/sh", "-c", "tail -n+1 -f /var/log/local.log" ]
         }
 
         volume {
@@ -233,36 +215,36 @@ resource "kubernetes_deployment" "wandb" {
           }
         }
 
-        # volume {
-        #   name = "varlog"
-        #   empty_dir {
+        volume {
+          name = "varlog"
+          empty_dir {
             
+          }
+        }
+
+        # volume {
+        #   name = "gorilla-logs"
+        #   config_map {
+        #     name = kubernetes_config_map.config_map.metadata[0].name
+        #     items {
+        #       key = "gorilla.log"
+        #       path = "gorilla.log"
+        #     }
+        #     optional = true
         #   }
         # }
 
-        volume {
-          name = "gorilla-logs"
-          # config_map {
-          #   name = kubernetes_config_map.config_map.metadata[0].name
-          #   items {
-          #     key = "gorilla.log"
-          #     path = "gorilla.log"
-          #   }
-          #   optional = true
-          # }
-        }
-
-        volume {
-          name = "local-logs"
-          # config_map {
-          #   name = kubernetes_config_map.config_map.metadata[0].name
-          #   items {
-          #     key = "local.log"
-          #     path = "local.log"
-          #   }
-          #   optional = true
-          # }
-        }
+        # volume {
+        #   name = "local-logs"
+        #   config_map {
+        #     name = kubernetes_config_map.config_map.metadata[0].name
+        #     items {
+        #       key = "local.log"
+        #       path = "local.log"
+        #     }
+        #     optional = true
+        #   }
+        # }
       }
     }
   }
