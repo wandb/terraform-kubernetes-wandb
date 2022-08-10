@@ -116,8 +116,14 @@ variable "redis_connection_string" {
   default     = ""
 }
 
+variable "redis_ca_cert" {
+  type        = string
+  description = "The redis certificate authority."
+  default     = ""
+}
+
 variable "cloud_monitoring_connection_string" {
   type        = string
   description = "The cloud provider to publish custom system metrics to for monitoring. Possible values are s3://, gs://, or az://."
-  default     = ""
+  default     = "noop://"
 }

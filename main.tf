@@ -1,5 +1,6 @@
 locals {
-  app_name = "wandb"
+  app_name           = "wandb"
+  redis_ca_cert_name = "server_ca.pem"
 }
 
 resource "kubernetes_deployment" "wandb" {
@@ -37,6 +38,12 @@ resource "kubernetes_deployment" "wandb" {
           image             = "${var.wandb_image}:${var.wandb_version}"
           image_pull_policy = "Always"
 
+          volume_mount {
+            mount_path = "/etc/ssl/certs/${local.redis_ca_cert_name}"
+            sub_path   = local.redis_ca_cert_name
+            name       = local.app_name
+          }
+
           env {
             name  = "LICENSE"
             value = var.license
@@ -64,7 +71,12 @@ resource "kubernetes_deployment" "wandb" {
 
           env {
             name  = "MYSQL"
-            value = var.database_connection_string
+            value_from {
+              secret_key_ref {
+                name = local.app_name
+                key = "MYSQL"
+              }
+            }
           }
 
           env {
@@ -143,6 +155,13 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
         }
+        volume {
+          name = local.app_name
+          config_map {
+            name     = kubernetes_config_map.config_map.metadata[0].name
+            optional = true
+          }
+        }
       }
     }
   }
@@ -168,5 +187,25 @@ resource "kubernetes_service" "service" {
       port      = 8080
       node_port = var.service_port
     }
+  }
+}
+
+resource "kubernetes_config_map" "config_map" {
+  metadata {
+    name = local.app_name
+  }
+
+  data = {
+    "server_ca.pem" = var.redis_ca_cert
+  }
+}
+
+resource "kubernetes_secret" "secret" {
+  metadata {
+    name = local.app_name
+  }
+
+  data = {
+    "MYSQL" = var.database_connection_string
   }
 }
