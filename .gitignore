@@ -1,3 +1,10 @@
+#  Terraform lock file
 .terraform.lock*
+
+#  Local .terraform directories
 .terraform/*
+
+# Editor files
 .idea
+
+.DS_Store

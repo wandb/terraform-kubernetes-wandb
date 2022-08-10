@@ -88,6 +88,11 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
+            name  = "OIDC_SECRET"
+            value = var.oidc_secret
+          }
+
+          env {
             name  = "OIDC_AUTH_METHOD"
             value = var.oidc_auth_method
           }
