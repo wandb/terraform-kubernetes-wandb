@@ -70,11 +70,11 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            name  = "MYSQL"
+            name = "MYSQL"
             value_from {
               secret_key_ref {
                 name = local.app_name
-                key = "MYSQL"
+                key  = "MYSQL"
               }
             }
           }
@@ -119,6 +119,15 @@ resource "kubernetes_deployment" "wandb" {
             value = var.cloud_monitoring_connection_string
           }
 
+          dynamic "env" {
+            for_each = var.other_wandb_env
+            content {
+              name  = env.key
+              value = env.value
+
+            }
+          }
+
           port {
             name           = "http"
             container_port = 8080
@@ -136,7 +145,13 @@ resource "kubernetes_deployment" "wandb" {
               path = "/ready"
               port = "http"
             }
-            period_seconds = 240
+          }
+          startup_probe {
+            http_get {
+              path = "/ready"
+              port = "http"
+            }
+            failure_threshold = 120
           }
 
           resources {
