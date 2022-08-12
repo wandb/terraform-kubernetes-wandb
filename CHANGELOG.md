@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.1.3...v1.2.0) (2022-08-12)
+
+
+### Features
+
+* Add support for additional non-predefined variables ([#16](https://github.com/wandb/terraform-kubernetes-wandb/issues/16)) ([50421e4](https://github.com/wandb/terraform-kubernetes-wandb/commit/50421e4aa6b71c71deb95e20caf59542c982b657))
+
 ### [1.1.3](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.1.2...v1.1.3) (2022-06-16)
 
 
