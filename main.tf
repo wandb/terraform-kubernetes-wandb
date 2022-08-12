@@ -70,11 +70,11 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            name  = "MYSQL"
+            name = "MYSQL"
             value_from {
               secret_key_ref {
                 name = local.app_name
-                key = "MYSQL"
+                key  = "MYSQL"
               }
             }
           }
@@ -117,6 +117,15 @@ resource "kubernetes_deployment" "wandb" {
           env {
             name  = "GORILLA_CUSTOM_METRICS_PROVIDER"
             value = var.cloud_monitoring_connection_string
+          }
+
+          dynamic "env" {
+            for_each = var.other_wandb_env
+            content {
+              name  = env.key
+              value = env.value
+
+            }
           }
 
           port {

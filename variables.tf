@@ -59,6 +59,11 @@ variable "auth0_client_id" {
   default     = ""
 }
 
+variable "other_wandb_env" {
+  type    = map(string)
+  default = {}
+}
+
 # variable "slack_client_id" {
 #   type    = string
 #   description = "The client ID of the Slack application you want to use for alerts"
