@@ -106,7 +106,12 @@ resource "kubernetes_deployment" "wandb" {
 
           env {
             name  = "OIDC_SECRET"
-            value = var.oidc_secret
+            value_from {
+              secret_key_ref {
+                name = local.app_name
+                key  = "OIDC_SECRET"
+              }
+            }
           }
 
           env {
@@ -226,6 +231,7 @@ resource "kubernetes_secret" "secret" {
   }
 
   data = {
-    "MYSQL" = var.database_connection_string
+    "MYSQL"       = var.database_connection_string
+    "OIDC_SECRET" = var.oidc_secret
   }
 }
