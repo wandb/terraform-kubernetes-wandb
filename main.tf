@@ -45,6 +45,11 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
+            name  = "LOCAL_RESTORE"
+            value = var.local_restore
+          }
+
+          env {
             name  = "LICENSE"
             value = var.license
           }

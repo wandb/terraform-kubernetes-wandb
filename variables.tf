@@ -1,3 +1,9 @@
+variable "local_restore" {
+  description = "Restores Weights & Biases to a stable state if needed."
+  type        = bool
+  default     = false
+}
+
 variable "wandb_version" {
   description = "The version of Weights & Biases local to deploy."
   type        = string
@@ -92,6 +98,7 @@ variable "oidc_secret" {
   type        = string
   description = "The Client secret of the application in your identity provider"
   default     = ""
+  sensitive   = true
 }
 
 variable "oidc_auth_method" {
