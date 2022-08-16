@@ -113,6 +113,7 @@ resource "kubernetes_deployment" "wandb" {
               }
             }
           }
+          
 
           env {
             name  = "OIDC_AUTH_METHOD"
