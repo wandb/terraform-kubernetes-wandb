@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.2.0...v1.3.0) (2022-08-16)
+
+
+### Features
+
+* Add client secret as configurable parameter ([#17](https://github.com/wandb/terraform-kubernetes-wandb/issues/17)) ([7167a69](https://github.com/wandb/terraform-kubernetes-wandb/commit/7167a69e4936e73ba7d1b76d3c30a1d796677944))
+
 ## [1.2.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.1.3...v1.2.0) (2022-08-12)
 
 
