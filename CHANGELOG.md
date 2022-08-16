@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.3.0...v1.4.0) (2022-08-16)
+
+
+### Features
+
+* Add local restore variable ([#18](https://github.com/wandb/terraform-kubernetes-wandb/issues/18)) ([ebd69ab](https://github.com/wandb/terraform-kubernetes-wandb/commit/ebd69abe6d59ff7164359c5e7c5d7d2bf091ea12))
+
 ## [1.3.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.2.0...v1.3.0) (2022-08-16)
 
 
