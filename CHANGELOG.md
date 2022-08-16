@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.4.1](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.4.0...v1.4.1) (2022-08-16)
+
+
+### Bug Fixes
+
+* Add oidc secret as K8s secret ([#19](https://github.com/wandb/terraform-kubernetes-wandb/issues/19)) ([906d242](https://github.com/wandb/terraform-kubernetes-wandb/commit/906d242320ce6595697a92a294e0fb3befe783b2))
+
 ## [1.4.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.3.0...v1.4.0) (2022-08-16)
 
 
