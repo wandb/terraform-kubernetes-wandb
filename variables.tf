@@ -88,6 +88,12 @@ variable "oidc_client_id" {
   default     = ""
 }
 
+variable "oidc_secret" {
+  type        = string
+  description = "The Client secret of the application in your identity provider"
+  default     = ""
+}
+
 variable "oidc_auth_method" {
   type        = string
   description = "OIDC auth method"
