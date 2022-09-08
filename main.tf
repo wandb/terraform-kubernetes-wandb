@@ -128,6 +128,7 @@ resource "kubernetes_deployment" "wandb" {
             name = "GORILLA_ALLOW_ANONYMOUS_PUBLIC_PROJECTS"
             value = true
           }
+          
 
           env {
             name  = "REDIS"
