@@ -212,6 +212,10 @@ resource "kubernetes_service" "service" {
       port      = 8080
       node_port = var.service_port
     }
+    port {
+      port      = 8181
+      node_port = var.prometheus_port
+    }
   }
 }
 

@@ -122,6 +122,11 @@ variable "service_port" {
   default = 32543
 }
 
+variable "prometheus_port" {
+  type    = number
+  default = 30100
+}
+
 variable "redis_connection_string" {
   type        = string
   description = "The redis connection string."
