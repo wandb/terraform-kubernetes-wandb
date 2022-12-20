@@ -149,6 +149,11 @@ resource "kubernetes_deployment" "wandb" {
             protocol       = "TCP"
           }
 
+          port {
+            name           = "http"
+            container_port = 8181
+            protocol       = "TCP"
+          }
           liveness_probe {
             http_get {
               path = "/healthz"
