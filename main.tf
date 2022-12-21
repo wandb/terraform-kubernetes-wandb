@@ -150,10 +150,11 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           port {
-            name           = "http"
+            name           = "prometheus"
             container_port = 8181
             protocol       = "TCP"
           }
+
           liveness_probe {
             http_get {
               path = "/healthz"
@@ -214,10 +215,12 @@ resource "kubernetes_service" "service" {
       app = local.app_name
     }
     port {
+      name      = "http"
       port      = 8080
       node_port = var.service_port
     }
     port {
+      name      = "prometheus"
       port      = 8181
       node_port = var.prometheus_port
     }
