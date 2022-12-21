@@ -219,6 +219,18 @@ resource "kubernetes_service" "service" {
       port      = 8080
       node_port = var.service_port
     }
+  }
+}
+
+resource "kubernetes_service" "prometheus_service" {
+  metadata {
+    name = "prometheus"
+  }
+
+  spec {
+    selector = {
+      app = local.app_name
+    }
     port {
       name      = "prometheus"
       port      = 8181
