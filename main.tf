@@ -234,7 +234,6 @@ resource "kubernetes_service" "prometheus_service" {
     port {
       name      = "prometheus"
       port      = 8181
-      node_port = var.prometheus_port
     }
   }
 }
