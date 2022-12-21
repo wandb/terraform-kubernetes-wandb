@@ -105,7 +105,7 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            name  = "OIDC_SECRET"
+            name = "OIDC_SECRET"
             value_from {
               secret_key_ref {
                 name = local.app_name
@@ -222,7 +222,7 @@ resource "kubernetes_service" "service" {
   }
 }
 
-resource "kubernetes_service" "prometheus_service" {
+resource "kubernetes_service" "prometheus" {
   metadata {
     name = "prometheus"
   }
@@ -232,8 +232,8 @@ resource "kubernetes_service" "prometheus_service" {
       app = local.app_name
     }
     port {
-      name      = "prometheus"
-      port      = 8181
+      name = "prometheus"
+      port = 8181
     }
   }
 }
