@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.4.1...v1.5.0) (2023-01-10)
+
+
+### Features
+
+* Create internal prometheus service ([#20](https://github.com/wandb/terraform-kubernetes-wandb/issues/20)) ([c080604](https://github.com/wandb/terraform-kubernetes-wandb/commit/c080604414d2dd18df79504f7239f83295c3d893))
+
 ### [1.4.1](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.4.0...v1.4.1) (2022-08-16)
 
 
