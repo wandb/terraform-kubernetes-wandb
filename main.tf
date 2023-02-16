@@ -176,7 +176,7 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           resources {
-            requests = var.resources_requests
+            requests = var.resource_requests
             limits   = var.resource_limits
           }
         }

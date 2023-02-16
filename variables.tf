@@ -65,7 +65,7 @@ variable "auth0_client_id" {
   default     = ""
 }
 
-variable "resources_requests" {
+variable "resource_requests" {
   type        = map(string)
   description = "Specifies the allocation for resource requests"
   default = {
