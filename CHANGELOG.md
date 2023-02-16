@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.5.0...v1.6.0) (2023-02-16)
+
+
+### Features
+
+* Make resources configurable ([#21](https://github.com/wandb/terraform-kubernetes-wandb/issues/21)) ([caca4e0](https://github.com/wandb/terraform-kubernetes-wandb/commit/caca4e0551431084c70b882fa5138aeba0ed4906))
+
 ## [1.5.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.4.1...v1.5.0) (2023-01-10)
 
 
