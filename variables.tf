@@ -68,19 +68,19 @@ variable "auth0_client_id" {
 variable "resources_requests" {
   type        = map(string)
   description = "Specifies the allocation for resource requests"
-  default     = {
-              cpu    = "500m"
-              memory = "1G"
-            }
+  default = {
+    cpu    = "500m"
+    memory = "1G"
+  }
 }
 
 variable "resource_limits" {
   type        = map(string)
   description = "Specifies the allocation for resource limits"
-  default     = {
-              cpu    = "4000m"
-              memory = "8G"
-            }
+  default = {
+    cpu    = "4000m"
+    memory = "8G"
+  }
 }
 
 variable "other_wandb_env" {

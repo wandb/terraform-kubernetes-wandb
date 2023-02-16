@@ -177,7 +177,7 @@ resource "kubernetes_deployment" "wandb" {
 
           resources {
             requests = var.resources_requests
-            limits = var.resource_limits
+            limits   = var.resource_limits
           }
         }
         volume {
