@@ -1,3 +1,7 @@
+# Weights & Biases Kubernetes Module
+
+<!-- BEGIN_TF_DOCS -->
+
 ## Requirements
 
 | Name                                                                        | Version |
@@ -11,19 +15,10 @@
 | --------------------------------------------------------------------- | ------- |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider_kubernetes) | ~> 2.6  |
 
-## Modules
-
-No modules.
-
 ## Resources
 
-| Name                                                                                                                              | Type     |
-| --------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| [kubernetes_config_map.config_map](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
-| [kubernetes_deployment.wandb](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment)      | resource |
-| [kubernetes_secret.secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret)             | resource |
-| [kubernetes_service.prometheus](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service)       | resource |
-| [kubernetes_service.service](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service)          | resource |
+| Name | Type |
+| ---- | ---- |
 
 ## Inputs
 
@@ -59,3 +54,5 @@ No modules.
 | Name                                                                    | Description |
 | ----------------------------------------------------------------------- | ----------- |
 | <a name="output_service_port"></a> [service_port](#output_service_port) | n/a         |
+
+<!-- END_TF_DOCS -->
