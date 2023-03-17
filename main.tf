@@ -1,6 +1,14 @@
 locals {
   app_name           = "wandb"
   redis_ca_cert_name = "server_ca.pem"
+  db_conn_string     = var.database_connection_string
+}
+
+resource "random_id" "reload_pod" {
+  length = 8
+  keepers {
+    data = local.db_conn_string
+  }
 }
 
 resource "kubernetes_deployment" "wandb" {
@@ -242,13 +250,24 @@ resource "kubernetes_config_map" "config_map" {
   }
 }
 
+resource "kubernetes_config_map" "reload_pod" {
+  metadata {
+    name = "random-${local.app_name}"
+  }
+
+  data = {
+    "random_number" = random_id.reload_pod
+  }
+}
+
 resource "kubernetes_secret" "secret" {
   metadata {
     name = local.app_name
   }
 
   data = {
-    "MYSQL"       = var.database_connection_string
+    # "MYSQL"       = var.database_connection_string
+    "MYSQL"       = local.db_conn_string
     "OIDC_SECRET" = var.oidc_secret
   }
 }
