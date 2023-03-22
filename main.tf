@@ -1,14 +1,6 @@
 locals {
   app_name           = "wandb"
   redis_ca_cert_name = "server_ca.pem"
-  db_conn_string     = var.database_connection_string
-}
-
-resource "random_pet" "reload_pod" {
-  length = 2
-  keepers = {
-    data = local.db_conn_string
-  }
 }
 
 resource "kubernetes_deployment" "wandb" {
@@ -152,13 +144,8 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            name = "reload_pod"
-            value_from {
-              config_map_key_ref {
-                name = kubernetes_config_map.reload_pod.metadata[0].name
-                key  = "random-pet"
-              }
-            }
+            name = "TERRAFORM_VERSION"
+            value = terraform.version
           }
 
           port {
@@ -260,24 +247,13 @@ resource "kubernetes_config_map" "config_map" {
   }
 }
 
-resource "kubernetes_config_map" "reload_pod" {
-  metadata {
-    name = "${local.app_name}-${random_pet.reload_pod.id}"
-  }
-
-  data = {
-    "random-pet" = "${local.app_name}-${random_pet.reload_pod.id}"
-  }
-}
-
 resource "kubernetes_secret" "secret" {
   metadata {
     name = local.app_name
   }
 
   data = {
-    # "MYSQL"       = var.database_connection_string
-    "MYSQL"       = local.db_conn_string
+    "MYSQL"       = var.database_connection_string
     "OIDC_SECRET" = var.oidc_secret
   }
 }
