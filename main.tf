@@ -3,6 +3,13 @@ locals {
   redis_ca_cert_name = "server_ca.pem"
 }
 
+resource "random_integer" "number" {
+  min = 1
+  max = 50000
+  keepers = {
+    listener_arn = var.database_connection_string
+  }
+}
 resource "kubernetes_deployment" "wandb" {
   metadata {
     name = local.app_name
@@ -144,8 +151,8 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            name = "TERRAFORM_VERSION"
-            value = terraform.version
+            name  = "TERRAFORM_VERSION"
+            value = tostring(random_integer.number.result)
           }
 
           port {
