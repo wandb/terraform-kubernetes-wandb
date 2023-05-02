@@ -9,7 +9,7 @@ resource "kubernetes_priority_class" "priority" {
   }
 
   value = 2000002000
-  global-default = false
+  global_default = false
   description = "Priority class for wandb pods."
 }
 
