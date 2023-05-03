@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.6.0...v1.7.0) (2023-05-03)
+
+
+### Features
+
+* Adds priority class for wandb pod ([#26](https://github.com/wandb/terraform-kubernetes-wandb/issues/26)) ([1481595](https://github.com/wandb/terraform-kubernetes-wandb/commit/1481595668f9d94030037c55c1a894f2ff401748))
+
 ## [1.6.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.5.0...v1.6.0) (2023-02-16)
 
 
