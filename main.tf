@@ -3,6 +3,16 @@ locals {
   redis_ca_cert_name = "server_ca.pem"
 }
 
+resource "kubernetes_priority_class" "priority" {
+  metadata {
+    name = "wandb-priority"
+  }
+
+  value = 1000000000
+  global_default = false
+  description = "Priority class for wandb pods."
+}
+
 resource "kubernetes_deployment" "wandb" {
   metadata {
     name = local.app_name
@@ -33,6 +43,8 @@ resource "kubernetes_deployment" "wandb" {
       }
 
       spec {
+        priority_class_name = kubernetes_priority_class.priority.metadata[0].name
+
         container {
           name              = local.app_name
           image             = "${var.wandb_image}:${var.wandb_version}"
