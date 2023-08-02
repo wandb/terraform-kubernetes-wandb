@@ -149,7 +149,7 @@ resource "kubernetes_deployment" "wandb" {
 
           env {
             name = "WEAVE_SERVICE"
-            value = var.weave_enabled ? "${kubernetes_service.weave.metadata.0.name}:9994" : ""
+            value = var.weave_enabled ? "${kubernetes_service.weave.0.metadata.0.name}:9994" : ""
           }
 
           env {
