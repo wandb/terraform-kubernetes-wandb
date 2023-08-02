@@ -149,17 +149,17 @@ resource "kubernetes_deployment" "wandb" {
 
           env {
             name = "WEAVE_SERVICE"
-            value = "${kubernetes_service.weave.metadata.0.name}:9994"
+            value = var.weave_enabled ? "${kubernetes_service.weave.metadata.0.name}:9994" : ""
           }
 
           env {
             name = "PARQUET_ENABLED"
-            value = "true"
+            value = var.weave_enabled ? "true" : "false"
           }
 
           env {
             name = "WEAVE_ENABLED"
-            value = "true"
+            value = var.weave_enabled ? "true" : "false"
           }
 
           dynamic "env" {

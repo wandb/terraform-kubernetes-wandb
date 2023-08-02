@@ -157,3 +157,9 @@ variable "cloud_monitoring_connection_string" {
   description = "The cloud provider to publish custom system metrics to for monitoring. Possible values are s3://, gs://, or az://."
   default     = "noop://"
 }
+
+variable "weave_enabled" {
+  type       = bool
+  default    = false
+  description = "whether to enable Weave or not"
+}

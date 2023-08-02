@@ -6,6 +6,8 @@ resource "kubernetes_deployment" "weave" {
     }
   }
 
+  count = var.weave_enabled ? 1 : 0
+
   spec {
     replicas = 1
 
@@ -92,6 +94,8 @@ resource "kubernetes_service" "weave" {
   metadata {
     name = local.weave_app_name
   }
+
+  count = var.weave_enabled ? 1 : 0
 
   spec {
     type = "NodePort"
