@@ -157,6 +157,11 @@ resource "kubernetes_deployment" "wandb" {
             value = "true"
           }
 
+          env {
+            name = "WEAVE_ENABLED"
+            value = "true"
+          }
+
           dynamic "env" {
             for_each = var.other_wandb_env
             content {

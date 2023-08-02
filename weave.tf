@@ -35,6 +35,16 @@ resource "kubernetes_deployment" "weave" {
             value = "weave"
           }
 
+          env {
+            name = "WANDB_BASE_URL"
+            value = "${var.host}"
+          }
+
+          env {
+            name = "WEAVE_AUTH_GRAPHQL_URL"
+            value = "${var.host}/graphql"
+          }
+
           port {
             name           = "http"
             container_port = 9994
