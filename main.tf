@@ -1,5 +1,6 @@
 locals {
   app_name           = "wandb"
+  weave_app_name     = "weave"
   redis_ca_cert_name = "server_ca.pem"
 }
 
@@ -144,6 +145,21 @@ resource "kubernetes_deployment" "wandb" {
           env {
             name  = "GORILLA_CUSTOM_METRICS_PROVIDER"
             value = var.cloud_monitoring_connection_string
+          }
+
+          env {
+            name = "WEAVE_SERVICE"
+            value = var.weave_enabled ? "${kubernetes_service.weave.0.metadata.0.name}:9994" : ""
+          }
+
+          env {
+            name = "PARQUET_ENABLED"
+            value = var.weave_enabled ? "true" : "false"
+          }
+
+          env {
+            name = "WEAVE_ENABLED"
+            value = var.weave_enabled ? "true" : "false"
           }
 
           dynamic "env" {
