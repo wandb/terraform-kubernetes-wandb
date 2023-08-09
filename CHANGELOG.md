@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.7.0...v1.8.0) (2023-08-09)
+
+
+### Features
+
+* **weave:** Add a weave deployment under feature flag ([#29](https://github.com/wandb/terraform-kubernetes-wandb/issues/29)) ([256a2dc](https://github.com/wandb/terraform-kubernetes-wandb/commit/256a2dcac42672dcc56426bd64142cb33f825da1))
+* **weave:** Add a weave deployment under feature flag ([#30](https://github.com/wandb/terraform-kubernetes-wandb/issues/30)) ([619f678](https://github.com/wandb/terraform-kubernetes-wandb/commit/619f678a9ad77336afa61583d2798286f4483ea4))
+* **weave:** Add a weave deployment under feature flag ([#31](https://github.com/wandb/terraform-kubernetes-wandb/issues/31)) ([8c5b328](https://github.com/wandb/terraform-kubernetes-wandb/commit/8c5b328e9c254b649212095f49b7144d8ce905b4))
+
 ## [1.7.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.6.0...v1.7.0) (2023-05-03)
 
 
