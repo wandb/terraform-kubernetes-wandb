@@ -167,7 +167,7 @@ variable "weave_enabled" {
 variable "dd_env" {
   type        = string
   description = "The Datadog environment to send metrics to."
-  default     = "dev"
+  default     = ""
 }
 
 variable "weave_enable_datadog" {
