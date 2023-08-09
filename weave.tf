@@ -47,6 +47,44 @@ resource "kubernetes_deployment" "weave" {
             value = "${var.host}/graphql"
           }
 
+          env {
+            name = "DD_SERVICE"
+            value = "weave-python"
+          }
+
+          env {
+            name = "DD_ENV"
+            value = var.dd_env
+          }
+
+          env {
+            name = "DD_TRACE_AGENT_HOSTNAME"
+            value_from {
+              field_ref {
+                field_path = "status.hostIP"
+              }
+            }
+          }
+
+          env {
+            name = "DD_AGENT_HOST"
+            value_from {
+              field_ref {
+                field_path = "status.hostIP"
+              }
+            }
+          }
+
+          env {
+            name = "WEAVE_ENABLE_DATADOG"
+            value = var.weave_enable_datadog ? "true" : "false"
+          }
+
+          env {
+            name = "DD_PROFILING_ENABLED"
+            value = var.weave_dd_profiling_enabled ? "true" : "false"
+          }
+
           port {
             name           = "http"
             container_port = 9994
@@ -72,6 +110,8 @@ resource "kubernetes_deployment" "weave" {
               path = "__weave/hello"
               port = "http"
             }
+            failure_threshold = 12
+            period_seconds = 10
           }
 
           resources {

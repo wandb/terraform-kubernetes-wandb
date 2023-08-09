@@ -163,3 +163,21 @@ variable "weave_enabled" {
   default    = false
   description = "whether to enable Weave or not"
 }
+
+variable "dd_env" {
+  type        = string
+  description = "The Datadog environment to send metrics to."
+  default     = "dev"
+}
+
+variable "weave_enable_datadog" {
+  type        = bool
+  description = "Whether to enable Datadog for Weave."
+  default     = false
+}
+
+variable "weave_dd_profiling_enabled" {
+  type        = bool
+  description = "Whether to enable Datadog profiling for Weave."
+  default     = false
+}

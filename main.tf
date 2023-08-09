@@ -153,6 +153,20 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
+            name = "GORILLA_STATSD_HOST"
+            value_from {
+              field_ref {
+                field_path = "status.hostIP"
+              }
+            }
+          }
+
+          env {
+            name = "GORILLA_STATSD_PORT"
+            value = "8125"
+          }
+
+          env {
             name = "PARQUET_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
