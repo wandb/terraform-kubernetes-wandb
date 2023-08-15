@@ -172,16 +172,6 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
 
-          env {
-            name = "GORILLA_STATSD_HOST"
-            value = "datadog.datadog"
-          }
-
-          env {
-            name = "GORILLA_STATSD_PORT"
-            value = "8125"
-          }
-
           port {
             name           = "http"
             container_port = 8080
