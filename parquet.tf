@@ -216,7 +216,7 @@ resource "kubernetes_service" "parquet" {
   count = var.parquet_enabled ? 1 : 0
 
   spec {
-    type = "NodePort"
+    type = "ClusterIP"
     selector = {
       app = local.parquet_app_name
     }
