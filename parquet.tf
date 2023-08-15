@@ -32,6 +32,12 @@ resource "kubernetes_deployment" "parquet" {
           image             = "${var.wandb_image}:${var.wandb_version}"
           image_pull_policy = "Always"
 
+          volume_mount {
+            mount_path = "/etc/ssl/certs/${local.redis_ca_cert_name}"
+            sub_path   = local.redis_ca_cert_name
+            name       = local.app_name
+          }
+
           env {
             name = "ONLY_SERVICE"
             value = "gorilla-parquet"
@@ -175,12 +181,12 @@ resource "kubernetes_deployment" "parquet" {
 
           resources {
             requests = {
-              cpu    = "4000m"
-              memory = "8G"
+              cpu    = "3000m"
+              memory = "12G"
             }
             limits   = {
-              cpu    = "8000m"
-              memory = "16G"
+              cpu    = "3000m"
+              memory = "12G"
             }
           }
         }

@@ -159,6 +159,11 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
+            name = "PARQUET_HOST"
+            value = var.parquet_enabled ? "http://${kubernetes_service.parquet.0.metadata.0.name}:8087" : ""
+          }
+
+          env {
             name = "WEAVE_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
