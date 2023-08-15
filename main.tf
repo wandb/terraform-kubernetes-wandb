@@ -1,7 +1,7 @@
 locals {
   app_name           = "wandb"
   weave_app_name     = "weave"
-  parquet_app_name   = "gorillaparquet"
+  parquet_app_name   = "parquet"
   redis_ca_cert_name = "server_ca.pem"
 }
 
@@ -175,16 +175,6 @@ resource "kubernetes_deployment" "wandb" {
               value = env.value
 
             }
-          }
-
-          env {
-            name = "GORILLA_STATSD_HOST"
-            value = "datadog.datadog"
-          }
-
-          env {
-            name = "GORILLA_STATSD_PORT"
-            value = "8125"
           }
 
           port {
