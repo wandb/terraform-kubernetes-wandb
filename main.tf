@@ -1,7 +1,7 @@
 locals {
   app_name           = "wandb"
   weave_app_name     = "weave"
-  parquet_app_name   = "gorillaparquet"
+  parquet_app_name   = "parquet"
   redis_ca_cert_name = "server_ca.pem"
 }
 
