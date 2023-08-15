@@ -1,46 +1,26 @@
-locals {
-  app_name           = "wandb"
-  weave_app_name     = "weave"
-  parquet_app_name   = "gorillaparquet"
-  redis_ca_cert_name = "server_ca.pem"
-}
-
-resource "kubernetes_priority_class" "priority" {
+resource "kubernetes_deployment" "parquet" {
   metadata {
-    name = "wandb-priority"
-  }
-
-  value = 1000000000
-  global_default = false
-  description = "Priority class for wandb pods."
-}
-
-resource "kubernetes_deployment" "wandb" {
-  metadata {
-    name = local.app_name
+    name = local.parquet_app_name
     labels = {
-      app = local.app_name
+      app = local.parquet_app_name
     }
   }
+
+  count = var.parquet_enabled ? 1 : 0
 
   spec {
-    replicas                  = 1
-    progress_deadline_seconds = var.progress_deadline_seconds
-
-    strategy {
-      type = "RollingUpdate"
-    }
+    replicas = 1
 
     selector {
       match_labels = {
-        app = local.app_name
+        app = local.parquet_app_name
       }
     }
 
     template {
       metadata {
         labels = {
-          app = local.app_name
+          app = local.parquet_app_name
         }
       }
 
@@ -48,14 +28,13 @@ resource "kubernetes_deployment" "wandb" {
         priority_class_name = kubernetes_priority_class.priority.metadata[0].name
 
         container {
-          name              = local.app_name
+          name = local.parquet_app_name
           image             = "${var.wandb_image}:${var.wandb_version}"
           image_pull_policy = "Always"
 
-          volume_mount {
-            mount_path = "/etc/ssl/certs/${local.redis_ca_cert_name}"
-            sub_path   = local.redis_ca_cert_name
-            name       = local.app_name
+          env {
+            name = "ONLY_SERVICE"
+            value = "gorilla-parquet"
           }
 
           env {
@@ -184,7 +163,7 @@ resource "kubernetes_deployment" "wandb" {
 
           port {
             name           = "http"
-            container_port = 8080
+            container_port = 8087
             protocol       = "TCP"
           }
 
@@ -194,29 +173,15 @@ resource "kubernetes_deployment" "wandb" {
             protocol       = "TCP"
           }
 
-          liveness_probe {
-            http_get {
-              path = "/healthz"
-              port = "http"
-            }
-          }
-          readiness_probe {
-            http_get {
-              path = "/ready"
-              port = "http"
-            }
-          }
-          startup_probe {
-            http_get {
-              path = "/ready"
-              port = "http"
-            }
-            failure_threshold = 120
-          }
-
           resources {
-            requests = var.resource_requests
-            limits   = var.resource_limits
+            requests = {
+              cpu    = "4000m"
+              memory = "8G"
+            }
+            limits   = {
+              cpu    = "8000m"
+              memory = "16G"
+            }
           }
         }
         volume {
@@ -237,57 +202,22 @@ resource "kubernetes_deployment" "wandb" {
   }
 }
 
-resource "kubernetes_service" "service" {
+resource "kubernetes_service" "parquet" {
   metadata {
-    name = local.app_name
+    name = local.parquet_app_name
   }
+
+  count = var.parquet_enabled ? 1 : 0
 
   spec {
     type = "NodePort"
     selector = {
-      app = local.app_name
+      app = local.parquet_app_name
     }
     port {
       name      = "http"
-      port      = 8080
-      node_port = var.service_port
+      port      = 8087
+      target_port = 8087
     }
-  }
-}
-
-resource "kubernetes_service" "prometheus" {
-  metadata {
-    name = "prometheus"
-  }
-
-  spec {
-    selector = {
-      app = local.app_name
-    }
-    port {
-      name = "prometheus"
-      port = 8181
-    }
-  }
-}
-
-resource "kubernetes_config_map" "config_map" {
-  metadata {
-    name = local.app_name
-  }
-
-  data = {
-    "server_ca.pem" = var.redis_ca_cert
-  }
-}
-
-resource "kubernetes_secret" "secret" {
-  metadata {
-    name = local.app_name
-  }
-
-  data = {
-    "MYSQL"       = var.database_connection_string
-    "OIDC_SECRET" = var.oidc_secret
   }
 }
