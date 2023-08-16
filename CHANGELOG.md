@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.8.0...v1.9.0) (2023-08-16)
+
+
+### Features
+
+* **weave:** Add a new deployment and service for gorilla parquet ([#32](https://github.com/wandb/terraform-kubernetes-wandb/issues/32)) ([ed21c97](https://github.com/wandb/terraform-kubernetes-wandb/commit/ed21c9749c83ce3e84697cff53cfc73bcf5c0038))
+
 ## [1.8.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.7.0...v1.8.0) (2023-08-09)
 
 
