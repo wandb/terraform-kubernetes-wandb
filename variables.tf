@@ -164,6 +164,12 @@ variable "weave_enabled" {
   description = "whether to enable Weave or not"
 }
 
+variable "parquet_enabled" {
+  type       = bool
+  default    = false
+  description = "whether to enable Parquet independently or not"
+}
+
 variable "dd_env" {
   type        = string
   description = "The Datadog environment to send metrics to."
