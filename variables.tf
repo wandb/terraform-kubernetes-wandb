@@ -187,3 +187,27 @@ variable "weave_dd_profiling_enabled" {
   description = "Whether to enable Datadog profiling for Weave."
   default     = false
 }
+
+variable "weave_storage_class" {
+  type        = string
+  description = "The storage class to use for the weave cache."
+  default     = "standard"
+}
+
+variable "weave_storage_size" {
+  type        = string
+  description = "The size of the weave cache, we don't mount a pvc when not set."
+  default     = ""
+}
+
+variable "weave_storage_provisioner" {
+  type        = string
+  description = "The storage provisioner to use for the weave cache, we don't create a new storage class when not set."
+  default     = ""
+}
+
+variable "weave_storage_type" {
+  type        = string
+  description = "The type of storage provisioner to use."
+  default     = ""
+}
