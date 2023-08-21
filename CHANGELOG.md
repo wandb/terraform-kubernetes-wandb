@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.9.0...v1.10.0) (2023-08-21)
+
+
+### Features
+
+* **storage:** Wire up optional PVC & storage class to weave ([#34](https://github.com/wandb/terraform-kubernetes-wandb/issues/34)) ([85bf61d](https://github.com/wandb/terraform-kubernetes-wandb/commit/85bf61d43ce7d0a962aae43503fefe73f5fd5d1f))
+
 ## [1.9.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.8.0...v1.9.0) (2023-08-16)
 
 
