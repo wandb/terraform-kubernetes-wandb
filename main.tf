@@ -94,16 +94,6 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            name = "MYSQL"
-            value_from {
-              secret_key_ref {
-                name = local.app_name
-                key  = "MYSQL"
-              }
-            }
-          }
-
-          env {
             name  = "HOST"
             value = var.host
           }
@@ -121,16 +111,6 @@ resource "kubernetes_deployment" "wandb" {
           env {
             name  = "OIDC_CLIENT_ID"
             value = var.oidc_client_id
-          }
-
-          env {
-            name = "OIDC_SECRET"
-            value_from {
-              secret_key_ref {
-                name = local.app_name
-                key  = "OIDC_SECRET"
-              }
-            }
           }
 
           dynamic "env" {
