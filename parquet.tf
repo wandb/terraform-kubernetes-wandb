@@ -179,6 +179,20 @@ resource "kubernetes_deployment" "parquet" {
             protocol       = "TCP"
           }
 
+          liveness_probe {
+            http_get {
+              path = "/healthz"
+              port = "http"
+            }
+          }
+
+          readiness_probe {
+            http_get {
+              path = "/ready"
+              port = "http"
+            }
+          }
+
           resources {
             requests = {
               cpu    = "3000m"
