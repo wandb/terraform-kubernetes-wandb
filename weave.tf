@@ -118,9 +118,59 @@ resource "kubernetes_deployment" "weave" {
               memory = "16G"
             }
           }
+
+          dynamic "volume_mount" {
+            for_each = var.weave_storage_size != "" ? ["weave-cache"] : []
+            content {
+            name       = volume_mount.value
+              mount_path = "/vol/weave/cache"
+            }
+          }
+        }
+        dynamic "volume" {
+          for_each = var.weave_storage_size != "" ? ["weave-cache"] : []
+          content {
+            name = volume.value
+            persistent_volume_claim {
+              claim_name = "${local.weave_app_name}-pvc"
+            }
+          }
         }
       }
     }
+  }
+}
+
+resource "kubernetes_storage_class" "weave" {
+  metadata {
+    name = var.weave_storage_class
+  }
+
+  count = var.weave_storage_provisioner != "" ? 1 : 0
+
+  storage_provisioner = var.weave_storage_provisioner
+  parameters = {
+    type = var.weave_storage_type
+  }
+  reclaim_policy      = "Delete" # TODO: might want reclaim here
+  volume_binding_mode = "WaitForFirstConsumer"
+}
+
+resource "kubernetes_persistent_volume_claim" "weave" {
+  metadata {
+    name = "${local.weave_app_name}-pvc"
+  }
+
+  count = var.weave_storage_size != "" ? 1 : 0
+
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = var.weave_storage_size
+      }
+    }
+    storage_class_name = var.weave_storage_class
   }
 }
 
