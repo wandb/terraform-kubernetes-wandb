@@ -3,6 +3,11 @@ locals {
   weave_app_name     = "weave"
   parquet_app_name   = "parquet"
   redis_ca_cert_name = "server_ca.pem"
+  static_secrets     = {
+    "MYSQL"       = var.database_connection_string
+    "OIDC_SECRET" = var.oidc_secret
+  }
+  all_secrets        = merge(local.static_secrets, var.other_wandb_secrets)
 }
 
 resource "kubernetes_priority_class" "priority" {
@@ -128,6 +133,19 @@ resource "kubernetes_deployment" "wandb" {
             }
           }
 
+          dynamic "env" {
+            for_each = var.other_wandb_secrets
+            content {
+              name = env.key
+              value_from {
+                secret_key_ref {
+                  name = local.app_name
+                  key  = env.key
+                }
+              }
+            }
+          }
+
           env {
             name  = "OIDC_AUTH_METHOD"
             value = var.oidc_auth_method
@@ -173,7 +191,6 @@ resource "kubernetes_deployment" "wandb" {
             content {
               name  = env.key
               value = env.value
-
             }
           }
 
@@ -282,7 +299,6 @@ resource "kubernetes_secret" "secret" {
   }
 
   data = {
-    "MYSQL"       = var.database_connection_string
-    "OIDC_SECRET" = var.oidc_secret
+    for key, value in local.all_secrets : key => value
   }
 }
