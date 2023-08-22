@@ -85,6 +85,13 @@ variable "resource_limits" {
 
 variable "other_wandb_env" {
   type    = map(string)
+  description = "Other environment variables to pass to the wandb/local container"
+  default = {}
+}
+
+variable "other_wandb_secrets" {
+  type    = map(string)
+  description = "Other secret environment variables to pass to the wandb/local container"
   default = {}
 }
 
