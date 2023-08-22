@@ -4,6 +4,6 @@ resource "kubernetes_config_map" "wandb" {
   }
 
   data = {
-    "server_ca.pem" = data.kubernetes_config_map.wandb-infra.data["redis-ca-certificate"].value ? "server_ca.pem" : data.kubernetes_config_map.wandb-infra.data["redis-ca-certificate"]
+    "server_ca.pem" = data.kubernetes_config_map.wandb-infra.data["redis-ca-certificate"] == {} ? "server_ca.pem" : data.kubernetes_config_map.wandb-infra.data["redis-ca-certificate"]
   }
 }
