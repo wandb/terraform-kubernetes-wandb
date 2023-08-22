@@ -58,7 +58,7 @@ resource "kubernetes_deployment" "wandb" {
                 key  = "MYSQL"
               }
             }
-          }          
+          }
 
           env {
             name  = "LOCAL_RESTORE"
@@ -131,22 +131,22 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            name = "WEAVE_SERVICE"
+            name  = "WEAVE_SERVICE"
             value = var.weave_enabled ? "${kubernetes_service.weave.0.metadata.0.name}:9994" : ""
           }
 
           env {
-            name = "PARQUET_ENABLED"
+            name  = "PARQUET_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
 
           env {
-            name = "PARQUET_HOST"
+            name  = "PARQUET_HOST"
             value = var.parquet_enabled ? "http://${kubernetes_service.parquet.0.metadata.0.name}:8087" : ""
           }
 
           env {
-            name = "WEAVE_ENABLED"
+            name  = "WEAVE_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
 
@@ -206,9 +206,9 @@ resource "kubernetes_deployment" "wandb" {
     }
   }
 
-lifecycle {
-  replace_triggered_by = [ kubernetes_secret.wandb, kubernetes_config_map.wandb ]
-}
+  lifecycle {
+    replace_triggered_by = [kubernetes_secret.wandb, kubernetes_config_map.wandb]
+  }
 
   timeouts {
     create = "1h"

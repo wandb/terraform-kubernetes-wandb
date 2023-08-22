@@ -28,32 +28,32 @@ resource "kubernetes_deployment" "weave" {
         priority_class_name = kubernetes_priority_class.priority.metadata[0].name
 
         container {
-          name = local.weave_app_name
+          name              = local.weave_app_name
           image             = "${var.wandb_image}:${var.wandb_version}"
           image_pull_policy = "Always"
 
           env {
-            name = "ONLY_SERVICE"
+            name  = "ONLY_SERVICE"
             value = "weave"
           }
 
           env {
-            name = "WANDB_BASE_URL"
-            value = "${var.host}"
+            name  = "WANDB_BASE_URL"
+            value = var.host
           }
 
           env {
-            name = "WEAVE_AUTH_GRAPHQL_URL"
+            name  = "WEAVE_AUTH_GRAPHQL_URL"
             value = "${var.host}/graphql"
           }
 
           env {
-            name = "DD_SERVICE"
+            name  = "DD_SERVICE"
             value = "weave-python"
           }
 
           env {
-            name = "DD_ENV"
+            name  = "DD_ENV"
             value = var.dd_env
           }
 
@@ -70,12 +70,12 @@ resource "kubernetes_deployment" "weave" {
           }
 
           env {
-            name = "WEAVE_ENABLE_DATADOG"
+            name  = "WEAVE_ENABLE_DATADOG"
             value = var.weave_enable_datadog ? "true" : "false"
           }
 
           env {
-            name = "DD_PROFILING_ENABLED"
+            name  = "DD_PROFILING_ENABLED"
             value = var.weave_dd_profiling_enabled ? "true" : "false"
           }
 
@@ -105,7 +105,7 @@ resource "kubernetes_deployment" "weave" {
               port = "http"
             }
             failure_threshold = 12
-            period_seconds = 10
+            period_seconds    = 10
           }
 
           resources {
@@ -113,7 +113,7 @@ resource "kubernetes_deployment" "weave" {
               cpu    = "500m"
               memory = "1G"
             }
-            limits   = {
+            limits = {
               cpu    = "8000m"
               memory = "16G"
             }
@@ -122,7 +122,7 @@ resource "kubernetes_deployment" "weave" {
           dynamic "volume_mount" {
             for_each = var.weave_storage_size != "" ? ["weave-cache"] : []
             content {
-            name       = volume_mount.value
+              name       = volume_mount.value
               mount_path = "/vol/weave/cache"
             }
           }
@@ -187,8 +187,8 @@ resource "kubernetes_service" "weave" {
       app = local.weave_app_name
     }
     port {
-      name      = "http"
-      port      = 9994
+      name        = "http"
+      port        = 9994
       target_port = 9994
     }
   }
