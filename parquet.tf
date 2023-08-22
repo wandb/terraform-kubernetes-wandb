@@ -28,18 +28,18 @@ resource "kubernetes_deployment" "parquet" {
         priority_class_name = kubernetes_priority_class.priority.metadata[0].name
 
         container {
-          name = local.parquet_app_name
+          name              = local.parquet_app_name
           image             = "${var.wandb_image}:${var.wandb_version}"
           image_pull_policy = "Always"
 
           volume_mount {
             mount_path = "/etc/ssl/certs/${local.redis_ca_cert_name}"
             sub_path   = local.redis_ca_cert_name
-            name       = local.app_name
+            name       = "wandb"
           }
 
           env {
-            name = "ONLY_SERVICE"
+            name  = "ONLY_SERVICE"
             value = "gorilla-parquet"
           }
 
@@ -77,7 +77,7 @@ resource "kubernetes_deployment" "parquet" {
             name = "MYSQL"
             value_from {
               secret_key_ref {
-                name = local.app_name
+                name = "wandb"
                 key  = "MYSQL"
               }
             }
@@ -107,7 +107,7 @@ resource "kubernetes_deployment" "parquet" {
             name = "OIDC_SECRET"
             value_from {
               secret_key_ref {
-                name = local.app_name
+                name = "odic"
                 key  = "OIDC_SECRET"
               }
             }
@@ -134,17 +134,17 @@ resource "kubernetes_deployment" "parquet" {
           }
 
           env {
-            name = "WEAVE_SERVICE"
+            name  = "WEAVE_SERVICE"
             value = var.weave_enabled ? "${kubernetes_service.weave.0.metadata.0.name}:9994" : ""
           }
 
           env {
-            name = "PARQUET_ENABLED"
+            name  = "PARQUET_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
 
           env {
-            name = "WEAVE_ENABLED"
+            name  = "WEAVE_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
 
@@ -158,12 +158,12 @@ resource "kubernetes_deployment" "parquet" {
           }
 
           env {
-            name = "GORILLA_STATSD_HOST"
+            name  = "GORILLA_STATSD_HOST"
             value = "datadog.datadog"
           }
 
           env {
-            name = "GORILLA_STATSD_PORT"
+            name  = "GORILLA_STATSD_PORT"
             value = "8125"
           }
 
@@ -198,16 +198,16 @@ resource "kubernetes_deployment" "parquet" {
               cpu    = "3000m"
               memory = "12G"
             }
-            limits   = {
+            limits = {
               cpu    = "3000m"
               memory = "12G"
             }
           }
         }
         volume {
-          name = local.app_name
+          name = "wandb"
           config_map {
-            name     = kubernetes_config_map.config_map.metadata[0].name
+            name     = kubernetes_config_map.wandb.metadata[0].name
             optional = true
           }
         }
@@ -235,8 +235,8 @@ resource "kubernetes_service" "parquet" {
       app = local.parquet_app_name
     }
     port {
-      name      = "http"
-      port      = 8087
+      name        = "http"
+      port        = 8087
       target_port = 8087
     }
   }

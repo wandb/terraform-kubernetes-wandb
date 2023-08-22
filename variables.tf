@@ -84,15 +84,15 @@ variable "resource_limits" {
 }
 
 variable "other_wandb_env" {
-  type    = map(string)
+  type        = map(string)
   description = "Other environment variables to pass to the wandb/local container"
-  default = {}
+  default     = {}
 }
 
 variable "other_wandb_secrets" {
-  type    = map(string)
+  type        = map(string)
   description = "Other secret environment variables to pass to the wandb/local container"
-  default = {}
+  default     = {}
 }
 
 # variable "slack_client_id" {
@@ -166,14 +166,14 @@ variable "cloud_monitoring_connection_string" {
 }
 
 variable "weave_enabled" {
-  type       = bool
-  default    = false
+  type        = bool
+  default     = false
   description = "whether to enable Weave or not"
 }
 
 variable "parquet_enabled" {
-  type       = bool
-  default    = false
+  type        = bool
+  default     = false
   description = "whether to enable Parquet independently or not"
 }
 
