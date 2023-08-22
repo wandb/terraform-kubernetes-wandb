@@ -114,7 +114,7 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           dynamic "env" {
-            for_each = var.other_wandb_secrets
+            for_each = local.all_secrets
             content {
               name = env.key
               value_from {
@@ -167,7 +167,7 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           dynamic "env" {
-            for_each = local.all_secrets
+            for_each = var.other_wandb_env
             content {
               name  = env.key
               value = env.value
