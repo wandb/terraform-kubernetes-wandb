@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "wandb" {
   metadata {
-    name = local.app_name
+    name = "wandb"
   }
 
   data = {
@@ -11,7 +11,7 @@ resource "kubernetes_secret" "wandb" {
 
 resource "kubernetes_secret" "other" {
   metadata {
-    name = local.app_name
+    name = "other"
   }
 
   data = {
