@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.10.0...v1.11.0) (2023-08-22)
+
+
+### Features
+
+* **server:** Weave cache time and additional features. ([#35](https://github.com/wandb/terraform-kubernetes-wandb/issues/35)) ([5088d7b](https://github.com/wandb/terraform-kubernetes-wandb/commit/5088d7b248fbbe57ea7c4ea4f79ec60b1e797fb4)), closes [#36](https://github.com/wandb/terraform-kubernetes-wandb/issues/36)
+
 ## [1.10.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.9.0...v1.10.0) (2023-08-21)
 
 
