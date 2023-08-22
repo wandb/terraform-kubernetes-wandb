@@ -35,7 +35,7 @@ resource "kubernetes_deployment" "parquet" {
           volume_mount {
             mount_path = "/etc/ssl/certs/${local.redis_ca_cert_name}"
             sub_path   = local.redis_ca_cert_name
-            name       = local.app_name
+            name       = "wandb"
           }
 
           env {
@@ -77,7 +77,7 @@ resource "kubernetes_deployment" "parquet" {
             name = "MYSQL"
             value_from {
               secret_key_ref {
-                name = local.app_name
+                name = "wandb"
                 key  = "MYSQL"
               }
             }
@@ -107,7 +107,7 @@ resource "kubernetes_deployment" "parquet" {
             name = "OIDC_SECRET"
             value_from {
               secret_key_ref {
-                name = local.app_name
+                name = "odic"
                 key  = "OIDC_SECRET"
               }
             }
@@ -205,9 +205,9 @@ resource "kubernetes_deployment" "parquet" {
           }
         }
         volume {
-          name = local.app_name
+          name = "wandb"
           config_map {
-            name     = kubernetes_config_map.config_map.metadata[0].name
+            name     = kubernetes_config_map.wandb.metadata[0].name
             optional = true
           }
         }
