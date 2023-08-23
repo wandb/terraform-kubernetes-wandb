@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.11.2](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.1...v1.11.2) (2023-08-23)
+
+
+### Bug Fixes
+
+* Add security context to pvc. ([#38](https://github.com/wandb/terraform-kubernetes-wandb/issues/38)) ([ff8d4be](https://github.com/wandb/terraform-kubernetes-wandb/commit/ff8d4be7759410dbb11c878c00b356bb24419e54))
+
 ### [1.11.1](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.0...v1.11.1) (2023-08-23)
 
 
