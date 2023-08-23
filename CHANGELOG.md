@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.11.3](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.2...v1.11.3) (2023-08-23)
+
+
+### Bug Fixes
+
+* Use the right version of kube provider ([#39](https://github.com/wandb/terraform-kubernetes-wandb/issues/39)) ([e6a8707](https://github.com/wandb/terraform-kubernetes-wandb/commit/e6a8707236d6f11bd4c077e7adfb9f75bc1955b3))
+
 ### [1.11.2](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.1...v1.11.2) (2023-08-23)
 
 
