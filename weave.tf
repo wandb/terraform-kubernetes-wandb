@@ -141,6 +141,7 @@ resource "kubernetes_deployment" "weave" {
           runAsUser = 999
           fsGroupChangePolicy = "OnRootMismatch"
         }
+
       }
     }
   }
