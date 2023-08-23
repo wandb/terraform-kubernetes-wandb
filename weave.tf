@@ -136,11 +136,6 @@ resource "kubernetes_deployment" "weave" {
             }
           }
         }
-        securityContext {
-          fsGroup = 0
-          runAsUser = 999
-          fsGroupChangePolicy = "OnRootMismatch"
-        }
       }
     }
   }
