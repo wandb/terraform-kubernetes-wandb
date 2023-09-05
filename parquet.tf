@@ -194,14 +194,8 @@ resource "kubernetes_deployment" "parquet" {
           }
 
           resources {
-            requests = {
-              cpu    = "3000m"
-              memory = "12G"
-            }
-            limits   = {
-              cpu    = "3000m"
-              memory = "12G"
-            }
+            requests = var.parquet_resource_requests
+            limits   = var.parquet_resource_limits
           }
         }
         volume {
