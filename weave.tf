@@ -109,14 +109,8 @@ resource "kubernetes_deployment" "weave" {
           }
 
           resources {
-            requests = {
-              cpu    = "500m"
-              memory = "1G"
-            }
-            limits   = {
-              cpu    = "8000m"
-              memory = "16G"
-            }
+            requests = var.weave_resource_requests
+            limits   = var.weave_resource_limits
           }
 
           dynamic "volume_mount" {

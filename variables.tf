@@ -83,6 +83,42 @@ variable "resource_limits" {
   }
 }
 
+variable "parquet_resource_requests" {
+  type        = map(string)
+  description = "Specifies the allocation for resource limits"
+  default = {
+    cpu    = "3000m"
+    memory = "12G"
+  }
+}
+
+variable "parquet_resource_limits" {
+  type        = map(string)
+  description = "Specifies the allocation for resource limits"
+  default = {
+    cpu    = "3000m"
+    memory = "12G"
+  }
+}
+
+variable "weave_resource_requests" {
+  type        = map(string)
+  description = "Specifies the allocation for resource limits"
+  default = {
+    cpu    = "500m"
+    memory = "1G"
+  }
+}
+
+variable "weave_resource_limits" {
+  type        = map(string)
+  description = "Specifies the allocation for resource limits"
+  default = {
+    cpu    = "8000m"
+    memory = "16G"
+  }
+}
+
 variable "other_wandb_env" {
   type    = map(string)
   description = "Other environment variables to pass to the wandb/local container"
