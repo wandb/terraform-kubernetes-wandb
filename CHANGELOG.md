@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.11.4](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.3...v1.11.4) (2023-09-06)
+
+
+### Bug Fixes
+
+* Parameterize resources ([#40](https://github.com/wandb/terraform-kubernetes-wandb/issues/40)) ([ce70daf](https://github.com/wandb/terraform-kubernetes-wandb/commit/ce70dafebd8a782ff78267c7f5cdfc0477b4884f))
+
 ### [1.11.3](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.2...v1.11.3) (2023-08-23)
 
 
