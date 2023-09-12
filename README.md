@@ -7,7 +7,7 @@
 | Name                                                                        | Version |
 | --------------------------------------------------------------------------- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement_terraform)    | ~> 1.0  |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement_kubernetes) | ~> 2.6  |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement_kubernetes) | ~> 2.23  |
 
 ## Providers
 
