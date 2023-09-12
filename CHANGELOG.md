@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.4...v1.12.0) (2023-09-12)
+
+
+### Features
+
+* Upgrade k8s provider ([#41](https://github.com/wandb/terraform-kubernetes-wandb/issues/41)) ([bacdaf9](https://github.com/wandb/terraform-kubernetes-wandb/commit/bacdaf9248f91f7d2fe700349404b2375d720974))
+
 ### [1.11.4](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.3...v1.11.4) (2023-09-06)
 
 
