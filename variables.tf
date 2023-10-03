@@ -69,30 +69,12 @@ variable "resource_requests" {
   type        = map(string)
   description = "Specifies the allocation for resource requests"
   default = {
-    cpu    = "500m"
-    memory = "1G"
-  }
-}
-
-variable "resource_limits" {
-  type        = map(string)
-  description = "Specifies the allocation for resource limits"
-  default = {
-    cpu    = "4000m"
-    memory = "8G"
+    cpu    = 2
+    memory = "4G"
   }
 }
 
 variable "parquet_resource_requests" {
-  type        = map(string)
-  description = "Specifies the allocation for resource limits"
-  default = {
-    cpu    = "3000m"
-    memory = "12G"
-  }
-}
-
-variable "parquet_resource_limits" {
   type        = map(string)
   description = "Specifies the allocation for resource limits"
   default = {
@@ -107,15 +89,6 @@ variable "weave_resource_requests" {
   default = {
     cpu    = "500m"
     memory = "1G"
-  }
-}
-
-variable "weave_resource_limits" {
-  type        = map(string)
-  description = "Specifies the allocation for resource limits"
-  default = {
-    cpu    = "8000m"
-    memory = "16G"
   }
 }
 

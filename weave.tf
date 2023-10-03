@@ -110,7 +110,6 @@ resource "kubernetes_deployment" "weave" {
 
           resources {
             requests = var.weave_resource_requests
-            limits   = var.weave_resource_limits
           }
 
           dynamic "volume_mount" {

@@ -195,7 +195,6 @@ resource "kubernetes_deployment" "parquet" {
 
           resources {
             requests = var.parquet_resource_requests
-            limits   = var.parquet_resource_limits
           }
         }
         volume {
