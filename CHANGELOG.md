@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.12.0...v1.13.0) (2023-10-05)
+
+
+### Features
+
+* Update cpu and memory resource requests and limits ([#42](https://github.com/wandb/terraform-kubernetes-wandb/issues/42)) ([1a10198](https://github.com/wandb/terraform-kubernetes-wandb/commit/1a101986eb627630d3b7047940bac7e07d1ddb7c))
+
 ## [1.12.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.11.4...v1.12.0) (2023-09-12)
 
 
