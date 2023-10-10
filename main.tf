@@ -10,6 +10,15 @@ locals {
   all_secrets        = merge(local.static_secrets, var.other_wandb_secrets)
 }
 
+resource "kubernetes_service_account" "default" {
+  metadata {
+    name        = var.service_account_name
+    annotations = var.service_account_annotations
+  }
+
+  automount_service_account_token  = true
+}
+
 resource "kubernetes_priority_class" "priority" {
   metadata {
     name = "wandb-priority"
@@ -50,7 +59,8 @@ resource "kubernetes_deployment" "wandb" {
       }
 
       spec {
-        priority_class_name = kubernetes_priority_class.priority.metadata[0].name
+        service_account_name = kubernetes_service_account.default.metadata[0].name
+        priority_class_name  = kubernetes_priority_class.priority.metadata[0].name
 
         container {
           name              = local.app_name
