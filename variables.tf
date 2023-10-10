@@ -265,3 +265,8 @@ variable "service_account_annotations" {
   type    = map(string)
   default = {}
 }
+
+variable "service_account_labels" {
+  type    = map(string)
+  default = {}
+}
