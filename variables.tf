@@ -254,3 +254,24 @@ variable "weave_storage_type" {
   description = "The type of storage provisioner to use."
   default     = ""
 }
+
+variable "service_account_name" {
+  type = string
+  description = "The name of the service account to use for the wandb/local deployment."
+  default = "wandb-serviceaccount"
+}
+
+variable "service_account_annotations" {
+  type    = map(string)
+  default = {}
+}
+
+variable "service_account_labels" {
+  type    = map(string)
+  default = {}
+}
+
+variable "deployment_pod_labels" {
+  type    = map(string)
+  default = {}
+}
