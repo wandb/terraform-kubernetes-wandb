@@ -14,7 +14,7 @@ resource "kubernetes_service_account" "default" {
   metadata {
     name        = var.service_account_name
     annotations = var.service_account_annotations
-    labels = var.service_account_labels
+    labels      = var.service_account_labels
   }
 
   automount_service_account_token  = true
