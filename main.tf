@@ -56,6 +56,7 @@ resource "kubernetes_deployment" "wandb" {
       metadata {
         labels = {
           app = local.app_name
+          "azure.workload.identity/use" = "true"
         }
       }
 
