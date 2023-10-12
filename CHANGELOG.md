@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.14.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.13.0...v1.14.0) (2023-10-12)
+
+
+### Features
+
+* Add service account to kubernetes deployment ([#44](https://github.com/wandb/terraform-kubernetes-wandb/issues/44)) ([f711d75](https://github.com/wandb/terraform-kubernetes-wandb/commit/f711d755d2b72bb6789bc5a333ae033332e31f88))
+
 ## [1.13.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.12.0...v1.13.0) (2023-10-05)
 
 
