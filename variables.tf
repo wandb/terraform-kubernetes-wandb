@@ -270,3 +270,8 @@ variable "service_account_labels" {
   type    = map(string)
   default = {}
 }
+
+variable "deployment_pod_labels" {
+  type    = map(string)
+  default = {}
+}

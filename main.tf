@@ -54,10 +54,7 @@ resource "kubernetes_deployment" "wandb" {
 
     template {
       metadata {
-        labels = {
-          app = local.app_name
-          "azure.workload.identity/use" = "true"
-        }
+        labels = merge({ app = local.app_name }, var.deployment_pod_labels)
       }
 
       spec {
