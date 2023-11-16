@@ -106,7 +106,7 @@ variable "weave_resource_requests" {
   description = "Specifies the allocation for resource limits"
   default = {
     cpu    = "1000m"
-    memory = "12G"
+    memory = "4G"
   }
 }
 
