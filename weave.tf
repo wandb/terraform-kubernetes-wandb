@@ -57,26 +57,36 @@ resource "kubernetes_deployment" "weave" {
             value = var.dd_env
           }
 
-          dynamic "env" {
-            for_each = var.weave_enable_datadog ? ["DD_AGENT_HOST", "DD_TRACE_AGENT_HOSTNAME"] : []
-            content {
-              name = env.value
-              value_from {
-                field_ref {
-                  field_path = "status.hostIP"
-                }
-              }
-            }
+          # dynamic "env" {
+          #   for_each = var.weave_enable_datadog ? ["DD_AGENT_HOST", "DD_TRACE_AGENT_HOSTNAME"] : []
+          #   content {
+          #     name = env.value
+          #     value_from {
+          #       field_ref {
+          #         field_path = "status.hostIP"
+          #       }
+          #     }
+          #   }
+          # }
+
+          env {
+            name = "DD_AGENT_HOST"
+            value = "collector.otel.svc.cluster.local"
+          }
+
+          env {
+            name = "DD_TRACE_AGENT_HOSTNAME"
+            value = "collector.otel.svc.cluster.local"
           }
 
           env {
             name = "WEAVE_ENABLE_DATADOG"
-            value = var.weave_enable_datadog ? "true" : "false"
+            value = true
           }
 
           env {
             name = "DD_PROFILING_ENABLED"
-            value = var.weave_dd_profiling_enabled ? "true" : "false"
+            value = true
           }
 
           port {

@@ -159,7 +159,7 @@ resource "kubernetes_deployment" "parquet" {
 
           env {
             name = "GORILLA_STATSD_HOST"
-            value = "datadog.datadog"
+            value = "collector.otel.svc.cluster.local"
           }
 
           env {

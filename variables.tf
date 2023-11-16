@@ -203,7 +203,7 @@ variable "cloud_monitoring_connection_string" {
 
 variable "weave_enabled" {
   type       = bool
-  default    = false
+  default    = true
   description = "whether to enable Weave or not"
 }
 
@@ -222,13 +222,13 @@ variable "dd_env" {
 variable "weave_enable_datadog" {
   type        = bool
   description = "Whether to enable Datadog for Weave."
-  default     = false
+  default     = true
 }
 
 variable "weave_dd_profiling_enabled" {
   type        = bool
   description = "Whether to enable Datadog profiling for Weave."
-  default     = false
+  default     = true
 }
 
 variable "weave_storage_class" {
