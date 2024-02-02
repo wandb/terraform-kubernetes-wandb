@@ -39,7 +39,7 @@ resource "kubernetes_deployment" "wandb" {
   }
 
   spec {
-    replicas                  = 1
+    replicas                  = var.wandb_replicas
     progress_deadline_seconds = var.progress_deadline_seconds
 
     strategy {
