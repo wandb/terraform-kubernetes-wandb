@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.14.1](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.14.0...v1.14.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* Allow setting replica sets ([#45](https://github.com/wandb/terraform-kubernetes-wandb/issues/45)) ([2ef4899](https://github.com/wandb/terraform-kubernetes-wandb/commit/2ef4899b097d4329d5bf2389eaf7697cfdecb5d5))
+
 ## [1.14.0](https://github.com/wandb/terraform-kubernetes-wandb/compare/v1.13.0...v1.14.0) (2023-10-12)
 
 
