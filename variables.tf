@@ -275,3 +275,8 @@ variable "deployment_pod_labels" {
   type    = map(string)
   default = {}
 }
+
+variable "wandb_replicas" {
+  type    = number
+  default = 1
+}
