@@ -120,15 +120,15 @@ variable "weave_resource_limits" {
 }
 
 variable "other_wandb_env" {
-  type    = map(string)
+  type        = map(string)
   description = "Other environment variables to pass to the wandb/local container"
-  default = {}
+  default     = {}
 }
 
 variable "other_wandb_secrets" {
-  type    = map(string)
+  type        = map(string)
   description = "Other secret environment variables to pass to the wandb/local container"
-  default = {}
+  default     = {}
 }
 
 # variable "slack_client_id" {
@@ -202,14 +202,14 @@ variable "cloud_monitoring_connection_string" {
 }
 
 variable "weave_enabled" {
-  type       = bool
-  default    = false
+  type        = bool
+  default     = false
   description = "whether to enable Weave or not"
 }
 
 variable "parquet_enabled" {
-  type       = bool
-  default    = false
+  type        = bool
+  default     = false
   description = "whether to enable Parquet independently or not"
 }
 
@@ -256,9 +256,9 @@ variable "weave_storage_type" {
 }
 
 variable "service_account_name" {
-  type = string
+  type        = string
   description = "The name of the service account to use for the wandb/local deployment."
-  default = "wandb-serviceaccount"
+  default     = "wandb-serviceaccount"
 }
 
 variable "service_account_annotations" {
@@ -279,4 +279,22 @@ variable "deployment_pod_labels" {
 variable "wandb_replicas" {
   type    = number
   default = 1
+}
+
+variable "weave_wandb_env" {
+  type        = map(string)
+  description = "Extra environment variables for W&B"
+  default     = {}
+}
+
+variable "app_wandb_env" {
+  type        = map(string)
+  description = "Extra environment variables for W&B"
+  default     = {}
+}
+
+variable "parquet_wandb_env" {
+  type        = map(string)
+  description = "Extra environment variables for W&B"
+  default     = {}
 }

@@ -28,7 +28,7 @@ resource "kubernetes_deployment" "parquet" {
         priority_class_name = kubernetes_priority_class.priority.metadata[0].name
 
         container {
-          name = local.parquet_app_name
+          name              = local.parquet_app_name
           image             = "${var.wandb_image}:${var.wandb_version}"
           image_pull_policy = "Always"
 
@@ -39,7 +39,7 @@ resource "kubernetes_deployment" "parquet" {
           }
 
           env {
-            name = "ONLY_SERVICE"
+            name  = "ONLY_SERVICE"
             value = "gorilla-parquet"
           }
 
@@ -134,17 +134,17 @@ resource "kubernetes_deployment" "parquet" {
           }
 
           env {
-            name = "WEAVE_SERVICE"
+            name  = "WEAVE_SERVICE"
             value = var.weave_enabled ? "${kubernetes_service.weave.0.metadata.0.name}:9994" : ""
           }
 
           env {
-            name = "PARQUET_ENABLED"
+            name  = "PARQUET_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
 
           env {
-            name = "WEAVE_ENABLED"
+            name  = "WEAVE_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
 
@@ -157,13 +157,22 @@ resource "kubernetes_deployment" "parquet" {
             }
           }
 
+          dynamic "env" {
+            for_each = var.parquet_wandb_env
+            content {
+              name  = env.key
+              value = env.value
+
+            }
+          }
+
           env {
-            name = "GORILLA_STATSD_HOST"
+            name  = "GORILLA_STATSD_HOST"
             value = "datadog.datadog"
           }
 
           env {
-            name = "GORILLA_STATSD_PORT"
+            name  = "GORILLA_STATSD_PORT"
             value = "8125"
           }
 
@@ -229,8 +238,8 @@ resource "kubernetes_service" "parquet" {
       app = local.parquet_app_name
     }
     port {
-      name      = "http"
-      port      = 8087
+      name        = "http"
+      port        = 8087
       target_port = 8087
     }
   }
