@@ -36,6 +36,12 @@ resource "kubernetes_deployment" "wandb" {
     labels = {
       app = local.app_name
     }
+    annotations = {
+      change_config = sha1(jsonencode(merge(
+        kubernetes_config_map.config_map.data,
+        kubernetes_secret.secret.data,
+      )))
+    }
   }
 
   spec {
