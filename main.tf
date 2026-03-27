@@ -3,11 +3,11 @@ locals {
   weave_app_name     = "weave"
   parquet_app_name   = "parquet"
   redis_ca_cert_name = "server_ca.pem"
-  static_secrets     = {
+  static_secrets = {
     "MYSQL"       = var.database_connection_string
     "OIDC_SECRET" = var.oidc_secret
   }
-  all_secrets        = merge(local.static_secrets, var.other_wandb_secrets)
+  all_secrets = merge(local.static_secrets, var.other_wandb_secrets)
 }
 
 resource "kubernetes_service_account" "default" {
@@ -17,7 +17,7 @@ resource "kubernetes_service_account" "default" {
     labels      = var.service_account_labels
   }
 
-  automount_service_account_token  = true
+  automount_service_account_token = true
 }
 
 resource "kubernetes_priority_class" "priority" {
@@ -25,9 +25,9 @@ resource "kubernetes_priority_class" "priority" {
     name = "wandb-priority"
   }
 
-  value = 1000000000
+  value          = 1000000000
   global_default = false
-  description = "Priority class for wandb pods."
+  description    = "Priority class for wandb pods."
 }
 
 resource "kubernetes_deployment" "wandb" {
@@ -156,27 +156,35 @@ resource "kubernetes_deployment" "wandb" {
           }
 
           env {
-            name = "WEAVE_SERVICE"
+            name  = "WEAVE_SERVICE"
             value = var.weave_enabled ? "${kubernetes_service.weave.0.metadata.0.name}:9994" : ""
           }
 
           env {
-            name = "PARQUET_ENABLED"
+            name  = "PARQUET_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
 
           env {
-            name = "PARQUET_HOST"
+            name  = "PARQUET_HOST"
             value = var.parquet_enabled ? "http://${kubernetes_service.parquet.0.metadata.0.name}:8087" : ""
           }
 
           env {
-            name = "WEAVE_ENABLED"
+            name  = "WEAVE_ENABLED"
             value = var.weave_enabled ? "true" : "false"
           }
 
           dynamic "env" {
             for_each = var.other_wandb_env
+            content {
+              name  = env.key
+              value = env.value
+            }
+          }
+
+          dynamic "env" {
+            for_each = var.app_wandb_env
             content {
               name  = env.key
               value = env.value
